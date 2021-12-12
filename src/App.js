@@ -40,14 +40,14 @@ function App() {
         <Navbar/>
         <s.Container ai="right" flex="0" fd="row">
         <button className= "network button">BSCTEST</button>
-        {blockchain.account === "" || blockchain.cFont === null ? (
+        {blockchain.account == null || blockchain.cFont == null ? (
         <button className= "login button button2 right"
           onClick={(e) => {
             e.preventDefault();
             dispatch(connect());
           }}
         >
-          CONNECTs
+          CONNECT
         </button>
     ) : (
       <button className= "login address button button2">{blockchain.account}</button>
