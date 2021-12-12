@@ -95,7 +95,7 @@ const Inventory = (props) => {
             mint();
           }}
         >
-          Mint cFont (1 eBTC)
+          Mint cFont (200 eBTC)
         </button>) :  (<button className= "button button2"
           disabled={loading || props.blockchain.eBitcoin == null || props.blockchain.account == null  ? 1 : 0}
           onClick={(e) => {
