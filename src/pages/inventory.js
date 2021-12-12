@@ -86,10 +86,11 @@ const Inventory = (props) => {
 
   return (
     <s.Container ai={"center"} style={{ }}>
-        <s.SpacerSmall />
+        <s.SpacerLarge/>
+        <s.SpacerLarge/>
         {bigInt(props.data.tokenAllow) > bigInt(200 * 10**18) ? 
         (<button className= "button button2"
-          disabled={loading ? 1 : 0}
+          disabled={loading || (parseFloat(props.data.eBTCamount) / 10**18) < 200 ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
             mint();

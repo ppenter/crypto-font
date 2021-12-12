@@ -41,11 +41,16 @@ export const fetchData = (account) => {
         .getState()
         .blockchain.eBitcoin.methods.allowance(account, NFTaddress)
         .call();
+      let eBTCamount = await store
+        .getState()
+        .blockchain.eBitcoin.methods.balanceOf(account)
+        .call();
       dispatch(
         fetchDataSuccess({
           allFont,
           MyFont,
           tokenAllow,
+          eBTCamount,
         })
       );
     } catch (err) {

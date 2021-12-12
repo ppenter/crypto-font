@@ -2,6 +2,7 @@ const initialState = {
     loading: false,
     allFont: [],
     MyFont: [],
+    eBTCamount: 0,
     tokenAllow: 0,
     error: false,
     errorMsg: "",
@@ -21,6 +22,7 @@ const initialState = {
           allFont: action.payload.allFont,
           MyFont: action.payload.MyFont,
           tokenAllow: action.payload.tokenAllow,
+          eBTCamount: action.payload.eBTCamount,
         };
       case "CHECK_DATA_FAILED":
         return {

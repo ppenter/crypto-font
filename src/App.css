@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Modak&family=VT323&display=swap');
+
 :root {
   --primary: #C3073F;
   --secondary: #950740;
@@ -191,14 +192,6 @@ nav {
 }
 
 
-
-nav a {
-  margin: 3px;
-  margin-left: 20px;
-  text-decoration: none;
-  color: black;
-}
-
 button:disabled {
   background: var(--unfocus);
 }
@@ -209,6 +202,14 @@ button:disabled {
 
 .button2:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.navbar-dark .navbar-toggler-icon {
+  color: var(--primary);
+}
+
+.primary-color{
+  
 }
 
 .trash{
