@@ -47,7 +47,7 @@ function App() {
             dispatch(connect());
           }}
         >
-          CONNECT
+          CONNECTs
         </button>
     ) : (
       <button className= "login address button button2">{blockchain.account}</button>
