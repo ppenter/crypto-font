@@ -7,16 +7,18 @@ import {
     NavMenu,
     NavBtn,
     NavBtnLink,
+    NavMenuCollapse,
+    NavMenuCollapseContainer,
 } from "./NavbarElements";
 
 const Navbar = () => {
     return (
-        <>
-           <Nav>
-           <Bars />
+        <Nav>
             <NavLogo to="/">
-                cFont
+                    cFont
             </NavLogo>
+   
+    
             <NavMenu>
                 <NavLink to="/inventory">
                     Inventory
@@ -31,9 +33,7 @@ const Navbar = () => {
                     Metaverse
                 </NavLink>
             </NavMenu> 
-            
            </Nav> 
-        </>
     );
 };
 export default Navbar;

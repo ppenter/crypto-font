@@ -9,13 +9,19 @@ export const Nav = styled.nav`
     align-items: center;
     z-index: 12;
 `;
-export const NavLogo = styled(Link)`
 
-
+export const NavLogoCollapse = styled(Link)`
+  display: flex;
   cursor: pointer;
   color: #fff;
   font-size: 2rem;
-  @media screen and (max-width: 768px) {
+`;
+
+export const NavLogo = styled(Link)`
+  cursor: pointer;
+  color: #fff;
+  font-size: 2rem;
+  @media screen and (max-width: 900px) {
     display: none;
     position: flex;
     float: left;
@@ -46,33 +52,37 @@ cursor: pointer;
 export const Bars = styled(FaBars)`
   display: none;
   color: #fff;
-  @media screen and (max-width: 768px) {
+  float: right;
+  @media screen and (max-width: 900px) {
     display: flex;
-    position: flex;
-    float: left;
+    position: absolute;
     margin: 20px;
+    right: ${({ m }) => ( m ? m : "none" )};;
     font-size: 1.8rem;
     cursor: pointer;
   }
 `;
 
-export const NavMenuCollapse = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: -24px;
 
-  @media screen and (max-width: 768px) {
-    display: none;
+export const NavMenuCollapse = styled.div`
+  display: none;
+  @media screen and (max-width: 900px) {
+    display: flex;
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    text-align: center;
+    flex-direction: column;
+    background-color: #1A1A1D;
   }
 `;
 
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
-  margin-right: -24px;
 
-  @media screen and (max-width: 768px) {
-    display: flex;
+  @media screen and (max-width: 900px) {
+    display: none;
   }
 `;
 

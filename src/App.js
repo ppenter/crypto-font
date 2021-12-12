@@ -17,11 +17,18 @@ import Inventory from "./pages/inventory.js"
 import Marketplace from "./pages/marketplace.js"
 import FontInfo from "./pages/font.js"
 import Navbar from './components/Navbar';
+import NavbarC from './components/NavBarCollapse';
+import { Bars } from './components/Navbar/NavbarElements.js';
 
 function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
+  const [menuBar, setMenuBar] = React.useState("none");
+
+  const toggle = () => {
+    setMenuBar(menuBar == "none" ? ("flex") : ("none"));
+  };
 
   console.log(blockchain);
 
@@ -35,13 +42,21 @@ function App() {
 
   return (
     <s.Screen>
-      <div>
+      <s.Container display={menuBar}>
+      <NavbarC/>
+      </s.Container>
+      <div onClick={(e) => {
+            e.preventDefault();
+            toggle();
+          }}><Bars m={menuBar=="none" ? ("none") : ("20%")}/></div>
+      <s.Container>
         <s.Container fd={"row"} jc='space-between'>
+        <s.Container flex="1" fd="row">
+        
         <Navbar/>
-        <s.Container ai="right" flex="0" fd="row">
-        <button className= "network button">BSCTEST</button>
+        <s.Container flex="1" jc="end" fd="row">
         {blockchain.account == null || blockchain.cFont == null ? (
-        <button className= "login button button2 right"
+        <button className= "login button button2"
           onClick={(e) => {
             e.preventDefault();
             dispatch(connect());
@@ -54,11 +69,11 @@ function App() {
     )}
     </s.Container>
     </s.Container>
+    </s.Container>
     <s.Container  ai="center">
     <s.TextDescription>{blockchain.errorMsg != "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
     </s.Container>
       <Outlet />
-    </div>
         <Routes>
       <Route path="/" element={<Home/>} />
       <Route path="/inventory" element={<Inventory blockchain={blockchain} data={data} />} />
@@ -67,7 +82,7 @@ function App() {
       <Route path="/font/:id" element={<FontInfo blockchain={blockchain}  />}/>
       {/* <Route path="/play" element={<Play />} /> */}
     </Routes>
-    
+    </s.Container>
   </s.Screen>
 );
 }

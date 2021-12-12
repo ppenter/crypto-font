@@ -39,7 +39,7 @@ export const SpacerLarge = styled.div`
 
 // Used for providing a wrapper around a component
 export const Container = styled.div`
-  display: flex;
+  display: ${({ display }) => (display ? display : "flex")};
   flex: ${({ flex }) => (flex ? flex : 0)};
   flex-direction: ${({ fd }) => (fd ? fd : "column")};
   justify-content: ${({ jc }) => (jc ? jc : "flex-start")};
