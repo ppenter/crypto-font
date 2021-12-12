@@ -54,7 +54,7 @@ function App() {
         <s.Container flex="1" fd="row">
         
         <Navbar/>
-        <s.Container flex="1" jc="end" fd="row">
+        <s.Container flex="1" jc="end" ai="end" fd="row">
         {blockchain.account == null || blockchain.cFont == null ? (
         <button className= "login button button2"
           onClick={(e) => {
