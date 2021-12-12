@@ -158,10 +158,7 @@ img {
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
-  display: flex;
   cursor: pointer;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
 }
 
 .network{
@@ -173,7 +170,6 @@ img {
 .login{
   margin: 10px;
   max-width: 150px;
-  float: right;
 }
 
 nav {

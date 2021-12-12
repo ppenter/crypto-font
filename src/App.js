@@ -42,19 +42,19 @@ function App() {
 
   return (
     <s.Screen>
-      <s.Container display={menuBar}>
-      <NavbarC/>
+      <s.Container  display={menuBar}>
+        <NavbarC/>
       </s.Container>
       <div onClick={(e) => {
             e.preventDefault();
             toggle();
-          }}><Bars m={menuBar=="none" ? ("none") : ("20%")}/></div>
+          }}><Bars m={menuBar=="none" ? ("none") : ("20%")}/>
+      </div>
       <s.Container>
-        <s.Container fd={"row"} jc='space-between'>
-        <s.Container flex="1" fd="row">
-        
+        <s.Container flex="1" fd={"row"} jc='space-between'>
+          <s.Container flex="1" fd="row">
         <Navbar/>
-        <s.Container flex={"1"} jc={"end"} fd={"row"}>
+            <s.Container flex={"1"} jc={"end"} ai="end" fd={"row"}>
         {blockchain.account == null || blockchain.cFont == null ? (
         <button className= "login button button2"
           onClick={(e) => {
@@ -67,9 +67,9 @@ function App() {
     ) : (
       <button className= "login address button button2">{blockchain.account}</button>
     )}
-    </s.Container>
-    </s.Container>
-    </s.Container>
+            </s.Container>
+          </s.Container>
+        </s.Container>
     <s.Container  ai="center">
     <s.TextDescription>{blockchain.errorMsg != "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
     </s.Container>
