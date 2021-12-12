@@ -173,6 +173,7 @@ img {
 .login{
   margin: 10px;
   max-width: 150px;
+  float: right;
 }
 
 nav {
