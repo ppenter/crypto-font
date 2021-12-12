@@ -48,7 +48,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
         alignItems: "center",
         fontSize: (20 + (font.Size % 80)) + 'px',
         color: "white",
-        textShadow: `0px 0px 50px rgb(${c})`,
+        textShadow: `0px 0px 20px rgb(${c})`,
         ...style,
       }}
     >

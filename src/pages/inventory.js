@@ -50,7 +50,7 @@ const Inventory = (props) => {
       const allowToken = () => {
         setLoading(true);
         props.blockchain.eBitcoin.methods
-          .approve(props.blockchain.cFont._address, "100000000000000000000000000000000")
+          .approve(props.blockchain.cFont._address, "10000000000000000000000000000")
           .send({
             from: props.blockchain.account
           })
@@ -97,7 +97,7 @@ const Inventory = (props) => {
         >
           Mint cFont (1 eBTC)
         </button>) :  (<button className= "button button2"
-          disabled={loading && !props.blockchain  ? 1 : 0}
+          disabled={loading || props.blockchain.eBitcoin == null  ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
             allowToken();
