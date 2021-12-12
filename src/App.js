@@ -39,7 +39,7 @@ function App() {
         <s.Container fd={"row"} jc='space-between'>
         <Navbar/>
         <s.Container ai="right" flex="0" fd="row">
-        <button className= "network button">BSC TEST</button>
+        <button className= "network button">BSCTEST</button>
         {blockchain.account === "" || blockchain.cFont === null ? (
         <button className= "login button button2 right"
           onClick={(e) => {
