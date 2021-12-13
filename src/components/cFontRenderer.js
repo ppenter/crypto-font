@@ -1,7 +1,4 @@
-import { faAlignCenter, faRubleSign } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-// cards
-import { parts } from "../parts/parts";
 
 const Cfontrenderer = ({ font = null, size = 200, style }) => {
   if (!font || font.length <= 0) {
@@ -24,18 +21,11 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
   let first = dnaStr.substring(0, 3) % 256;
   let second = dnaStr.substring(3, 6) % 256;
   let third = dnaStr.substring(6, 9) % 256;
-  let fouth = dnaStr.substring(9, 12) % 256;
+  // let fouth = dnaStr.substring(9, 12) % 256;
   let str = ("0000" + font.Power).substring(font.Power.toString().length);
   let c =  first.toString() +","+ second.toString() +","+ third.toString() +","+ "1";
 
   let unicode = (eval('"\\u' + str + '"'));
-
-
-  const phudleStyle = {
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-  };
 
   return (
     <div

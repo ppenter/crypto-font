@@ -1,5 +1,4 @@
 import React from "react";
-import { parts } from "../parts/partsName";
 import * as s from "../styles/global.js";
 
 const Cfontinforenderer = ({ font = null,size = 500, style, owner= "" }) => {

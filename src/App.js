@@ -1,15 +1,12 @@
-import logo from './logo.svg';
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import * as s from "./styles/global";
 import { fetchData } from "./redux/data/dataActions";
 import { useDispatch, useSelector } from "react-redux";
-import { connect } from "./redux/blockchain/blockchainActions";
 import {
   Routes,
   Route,
-  Link,
   Outlet
 } from "react-router-dom";
 import Home from "./pages/home.js"
@@ -18,8 +15,6 @@ import Inventory from "./pages/inventory.js"
 import Marketplace from "./pages/marketplace.js"
 import FontInfo from "./pages/font.js"
 import Navigation from './components/Navbar';
-import NavbarC from './components/NavBarCollapse';
-import { Bars } from './components/Navbar/NavbarElements.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,10 +24,10 @@ function App() {
   console.log(blockchain);
 
   useEffect(() => {
-    if (blockchain.account !== "" && blockchain.phudleNFT !== null) {
+    if (blockchain.account !== "" && blockchain.cFont !== null) {
       dispatch(fetchData(blockchain.account));
     }
-  }, [blockchain.phudleNFT]);
+  }, [blockchain.cFont,dispatch, blockchain.account]);
 
   console.log(data);
 
@@ -40,7 +35,7 @@ function App() {
     <s.Screen>
       <Navigation/>
     <s.Container  ai="center">
-    <s.TextDescription>{blockchain.errorMsg != "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
+    <s.TextDescription>{blockchain.errorMsg !== "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
     </s.Container>
       <Outlet />
         <Routes>

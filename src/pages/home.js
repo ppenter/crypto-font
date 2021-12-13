@@ -1,7 +1,5 @@
 import React from 'react';
 import * as s from "../styles/global";
-import cFontRenderer from '../components/cFontRenderer';
-import { useEffect, useState } from "react";
   
 const Home = (props) => {
 

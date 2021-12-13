@@ -1,5 +1,5 @@
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { fetchData } from "../../redux/data/dataActions";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "../../redux/blockchain/blockchainActions";
@@ -13,10 +13,10 @@ const Navigation = () => {
     const data = useSelector((state) => state.data);
 
   useEffect(() => {
-    if (blockchain.account !== "" && blockchain.phudleNFT !== null) {
+    if (blockchain.account !== "" && blockchain.cFont !== null) {
       dispatch(fetchData(blockchain.account));
     }
-  }, [blockchain.phudleNFT]);
+  }, [blockchain.cFont, blockchain.account, dispatch]);
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">

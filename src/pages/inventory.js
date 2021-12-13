@@ -1,20 +1,12 @@
 import React from 'react';
 import { fetchData } from "../redux/data/dataActions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { useEffect, useState } from "react";
 import * as s from "../styles/global";
 import Cfontrenderer from '../components/cFontRenderer';
-import { faTrash,faDrumstickBite } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import bigInt from 'big-integer';
 import {
-    Nav,
-    NavLogo,
     NavLink,
-    Bars,
-    NavMenu,
-    NavBtn,
-    NavBtnLink,
 } from "../components/Navbar/NavbarElements.js";
   
 const Inventory = (props) => {
@@ -27,25 +19,7 @@ const Inventory = (props) => {
         if (props.blockchain.account !== "" && props.blockchain.cFont !== null) {
           dispatch(fetchData(props.blockchain.account));
         }
-      }, [props.blockchain.cFont]);
-      console.log(props.data);
-    const reverseSwap = (id) => {
-        setLoading(true);
-        props.blockchain.cFont.methods
-          .reverseSwap(id)
-          .send({
-            from: props.blockchain.account
-          })
-          .once("error", (err) => {
-            setLoading(false);
-            console.log(err);
-          })
-          .then((receipt) => {
-            setLoading(false);
-            console.log(receipt);
-            dispatch(fetchData(props.blockchain.account));
-          });
-      }
+      }, [props.blockchain.cFont,props.blockchain.account,dispatch]);
     
       const allowToken = () => {
         setLoading(true);
@@ -104,7 +78,7 @@ const Inventory = (props) => {
             allowToken();
           }}
         >
-          Allow Token
+          {props.blockchain.eBitcoin == null || props.blockchain.account == null  ? "Please login" : "Allow Token"}
         </button>)}
         
         <s.SpacerMedium />

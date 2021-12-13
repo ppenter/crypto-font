@@ -4,7 +4,6 @@ import eBitcoin from "../../contracts/eBitcoin.json";
 import cFont from "../../contracts/cryptoFont.json";
 // log
 import { fetchData } from "../data/dataActions";
-import { fetchcFont } from "../cFontInfo/cFontInfoActions";
 
 const connectRequest = () => {
   return {

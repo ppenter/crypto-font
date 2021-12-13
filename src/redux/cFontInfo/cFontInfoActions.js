@@ -1,5 +1,4 @@
 // log
-import store from "../store";
 import cFont from "../../contracts/cryptoFont.json";
 import Web3 from "web3";
 

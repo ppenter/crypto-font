@@ -14,7 +14,7 @@ const FontInfo = (props) => {
 
     useEffect(() => {
         dispatch(fetchcFont(id));
-      }, [id]);
+      }, [id,dispatch]);
     
     
     console.log(font.cFontInfo);
