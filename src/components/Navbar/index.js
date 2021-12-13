@@ -62,7 +62,7 @@ const Navigation = () => {
           CONNECT
         </button>
     ) : (
-      <button className= "login address button button2">{blockchain.account}</button>
+      <button className= "login address button button2" href="/">{blockchain.account}</button>
     )}
                 </Navbar.Collapse>
             </Container>
