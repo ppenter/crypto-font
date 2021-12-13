@@ -62,7 +62,10 @@ const Navigation = () => {
           CONNECT
         </button>
     ) : (
-      <button className= "login address button button2" href="/">{blockchain.account}</button>
+      <button className= "login address button button2" onClick={(e) => {
+        e.preventDefault();
+        window.location.href = window.location.href
+      }}>{blockchain.account}</button>
     )}
                 </Navbar.Collapse>
             </Container>
