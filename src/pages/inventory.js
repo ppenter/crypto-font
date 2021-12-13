@@ -113,7 +113,7 @@ const Inventory = (props) => {
               if(props.data.MyFont.indexOf(item.id)>-1){
                 return (
                     <NavLink key={item.id} to={"/font/"+item.id}>
-                  <s.Container className="card m-5" key={index} style={{ padding: "15px" }}>
+                  <s.Container className="Fontcard m-5" key={index} style={{ padding: "15px" }}>
                       <Cfontrenderer font={item}/>
                     {/* <cFontRenderer className="phudImg" font={item} /> */}
                     <s.SpacerXSmall />

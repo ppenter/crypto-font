@@ -44,7 +44,7 @@ export const Container = styled.div`
   flex-direction: ${({ fd }) => (fd ? fd : "column")};
   justify-content: ${({ jc }) => (jc ? jc : "flex-start")};
   align-items: ${({ ai }) => (ai ? ai : "flex-start")};
-  background-color: ${({ test }) => (test ? "pink" : "none")};
+  background-color: ${({ test }) => (test ? test : "none")};
   width:  ${({ w }) => ( w ? w : "100%" )};
   background-image: ${({ image }) => (image ? `url(${image})` : "none")};
   background-size: cover;
