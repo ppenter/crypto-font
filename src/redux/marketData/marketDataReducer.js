@@ -1,30 +1,24 @@
 const initialState = {
     loading: false,
-    cFontOwner: "",
-    cFontInfo: [],
-    price: 0,
-    activeList: [],
+    onsale: [],
     error: false,
     errorMsg: "",
   };
   
-  const cFontInfoReducer = (state = initialState, action) => {
+  const marketDataReducer = (state = initialState, action) => {
     switch (action.type) {
-      case "CHECK_cFont_REQUEST":
+      case "CHECK_Market_REQUEST":
         return {
           ...initialState,
           loading: true,
         };
-      case "CHECK_cFont_SUCCESS":
+      case "CHECK_Market_SUCCESS":
         return {
           ...initialState,
           loading: false,
-          cFontOwner: action.payload.cFontOwner,
-          cFontInfo: action.payload.cFontInfo,
-          price: action.payload.price,
-          activeList:action.payload.activeList,
+          onsale: action.payload.onsale,
         };
-      case "CHECK_cFont_FAILED":
+      case "CHECK_Market_FAILED":
         return {
           ...initialState,
           loading: false,
@@ -36,4 +30,4 @@ const initialState = {
     }
   };
   
-  export default cFontInfoReducer;
+  export default marketDataReducer;

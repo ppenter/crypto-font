@@ -4,6 +4,8 @@ const initialState = {
     MyFont: [],
     eBTCamount: 0,
     tokenAllow: 0,
+    eBTCApproveToMarket: 0,
+    cFontApproveToMarket: false,
     error: false,
     errorMsg: "",
   };
@@ -23,6 +25,8 @@ const initialState = {
           MyFont: action.payload.MyFont,
           tokenAllow: action.payload.tokenAllow,
           eBTCamount: action.payload.eBTCamount,
+          eBTCApproveToMarket: action.payload.eBTCApproveToMarket,
+          cFontApproveToMarket: action.payload.cFontApproveToMarket,
         };
       case "CHECK_DATA_FAILED":
         return {

@@ -37,6 +37,10 @@ export const fetchData = (account) => {
       let NFTaddress = await store
         .getState()
         .blockchain.cFont._address;
+      let Marketaddress = await store
+        .getState()
+        .blockchain.eBTCMarket._address;
+
       let tokenAllow = await store
         .getState()
         .blockchain.eBitcoin.methods.allowance(account, NFTaddress)
@@ -45,12 +49,22 @@ export const fetchData = (account) => {
         .getState()
         .blockchain.eBitcoin.methods.balanceOf(account)
         .call();
+      let eBTCApproveToMarket = await store
+        .getState()
+        .blockchain.eBitcoin.methods.allowance(account, Marketaddress)
+        .call();
+      let cFontApproveToMarket = await store
+        .getState()
+        .blockchain.cFont.methods.isApprovedForAll(account, Marketaddress)
+        .call();
       dispatch(
         fetchDataSuccess({
           allFont,
           MyFont,
           tokenAllow,
           eBTCamount,
+          eBTCApproveToMarket,
+          cFontApproveToMarket,
         })
       );
     } catch (err) {

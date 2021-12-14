@@ -1,0 +1,51 @@
+// log
+import Market from "../../contracts/Market.json";
+import cFont from "../../contracts/cryptoFont.json";
+import Web3 from "web3";
+
+const fetchMarketRequest = () => {
+  return {
+    type: "CHECK_Market_REQUEST",
+  };
+};
+
+const fetchMarketSuccess = (payload) => {
+  return {
+    type: "CHECK_Market_SUCCESS",
+    payload: payload,
+  };
+};
+
+const fetchMarketFailed = (payload) => {
+  return {
+    type: "CHECK_Market_FAILED",
+    payload: payload,
+  };
+};
+
+export const fetchMarket = () => {
+  return async (dispatch) => {
+    dispatch(fetchMarketRequest());
+
+    console.log(process.env.REACT_APP_networkID);
+    let web3 = new Web3(process.env.REACT_APP_RPC);
+    try {
+        const deployedNetwork = Market.networks[process.env.REACT_APP_networkID];
+        const MarketContract = new web3.eth.Contract(
+          Market.abi,
+          deployedNetwork.address,
+        );
+        const cFontAddres = cFont.networks[process.env.REACT_APP_networkID].address;
+        let onsale = await MarketContract.methods.getOnsaleOfToken(cFontAddres).call()
+        
+      dispatch(
+        fetchMarketSuccess({
+          onsale,
+        })
+      );
+    } catch (err) {
+      console.log(err);
+      dispatch(fetchMarketFailed("Could not load data from contract."));
+    }
+  };
+};

@@ -1,5 +1,6 @@
 // constants
 import Web3 from "web3";
+import eBTCMarket from "../../contracts/Market.json";
 import eBitcoin from "../../contracts/eBitcoin.json";
 import cFont from "../../contracts/cryptoFont.json";
 // log
@@ -44,13 +45,15 @@ export const connect = () => {
         const accounts = await window.ethereum.request({
           method: "eth_accounts",
         });
-        const networkId = await window.ethereum.request({
-          method: "net_version",
-        });
+        const networkId = process.env.REACT_APP_networkID;
+
+        console.log(networkId);
+
         const cFontNetworkData = await cFont.networks[networkId];
         const eBitcoinNetworkData = await eBitcoin.networks[networkId];
+        const eBTCMarketNetworkData = await eBTCMarket.networks[networkId];
         
-        if (cFontNetworkData && eBitcoinNetworkData) {
+        if (cFontNetworkData && eBitcoinNetworkData && eBTCMarketNetworkData) {
           const cFontContract = new web3.eth.Contract(
             cFont.abi,
             cFontNetworkData.address
@@ -59,11 +62,16 @@ export const connect = () => {
             eBitcoin.abi,
             eBitcoinNetworkData.address
           );
+          const eBTCMarketContract = new web3.eth.Contract(
+            eBTCMarket.abi,
+            eBTCMarketNetworkData.address
+          );
           dispatch(
             connectSuccess({
               account: accounts[0],
               cFont: cFontContract,
               eBitcoin: eBitcoinContract,
+              eBTCMarket: eBTCMarketContract,
               web3: web3,
             })
           );

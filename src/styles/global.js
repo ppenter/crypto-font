@@ -7,9 +7,11 @@ export const Screen = styled.div`
   background-size: cover;
   background-position: center;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-item: center;
   padding: ${({ p }) => ( p ? p : "none" )};
 `;
 
@@ -39,6 +41,7 @@ export const SpacerLarge = styled.div`
 
 // Used for providing a wrapper around a component
 export const Container = styled.div`
+
   display: ${({ display }) => (display ? display : "flex")};
   flex: ${({ flex }) => (flex ? flex : 0)};
   flex-direction: ${({ fd }) => (fd ? fd : "column")};
@@ -78,6 +81,7 @@ export const TextDescription = styled.p`
   font-size: 24px;
   font-weight: ${({ fw }) => ( fw ? fw : "200" )};
   line-height: ${({ lh }) => ( lh ? lh : "1.5" )};
+
 `;
 
 export const TextID = styled.p`
@@ -89,6 +93,41 @@ export const TextID = styled.p`
 export const StyledClickable = styled.div`
   :active {
     opacity: 0.6;
+  }
+`;
+
+export const Input = styled.input`
+  outline: 0;
+  background: transparent;
+  color: var(--text);
+  border: var(--text) 0.125em solid;
+  padding: 0.25em 1em;
+  border-radius: 0.25em;
+
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+`;
+
+export const button = styled.button`
+  background-color: transparent;
+  text-decoration: none;
+  color: var(--primary);
+  border: var(--primary) 0.125em solid;
+  padding: 0.25em 1em;
+  border-radius: 0.25em;
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
+  box-shadow: inset 0 0 0.5em 0 var(--primary), 0 0 0.5em 0 var(--primary);
+  :disabled{
+    background-color: transparent;
+    box-shadow: none;
+    color: var(--disable);
+    border: var(--disable) 0.125em solid;
+    text-shadow: none;
   }
 `;
 

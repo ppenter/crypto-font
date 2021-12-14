@@ -20,7 +20,10 @@ function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
+  const market = useSelector((state) => state.market);
 
+  console.log(market);
+  console.log(data);
   console.log(blockchain);
 
   useEffect(() => {
@@ -29,10 +32,10 @@ function App() {
     }
   }, [blockchain.cFont,dispatch, blockchain.account]);
 
-  console.log(data);
+
 
   return (
-    <s.Screen>
+    <div>
       <Navigation/>
     <s.Container  ai="center">
     <s.TextDescription>{blockchain.errorMsg !== "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
@@ -42,11 +45,11 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/inventory" element={<Inventory blockchain={blockchain} data={data} />} />
       <Route path="/land" element={<Lands/>} />
-      <Route path="/marketplace" element={<Marketplace blockchain={blockchain} data={useSelector((state) => state.data)} />}/>
-      <Route path="/font/:id" element={<FontInfo blockchain={blockchain}  />}/>
+      <Route path="/marketplace" element={<Marketplace blockchain={blockchain} market={market} data={useSelector((state) => state.data)} />}/>
+      <Route path="/font/:id" element={<FontInfo market={market} blockchain={blockchain}  />}/>
       {/* <Route path="/play" element={<Play />} /> */}
     </Routes>
-  </s.Screen>
+  </div>
 );
 }
 

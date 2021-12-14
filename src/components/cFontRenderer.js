@@ -1,4 +1,5 @@
 import React from "react";
+import * as s from "../styles/global.js";
 
 const Cfontrenderer = ({ font = null, size = 200, style }) => {
   if (!font || font.length <= 0) {
@@ -28,7 +29,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
   let unicode = (eval('"\\u' + str + '"'));
 
   return (
-    <div
+    <s.Container
       style={{
         width: size,
         height: size,
@@ -43,7 +44,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
       }}
     >
       {unicode}
-    </div>
+    </s.Container>
   );
 };
 

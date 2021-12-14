@@ -3,6 +3,7 @@ const initialState = {
     account: null,
     cFont: null,
     eBitcoin: null,
+    eBTCMarket: null,
     web3: null,
     errorMsg: "",
   };
@@ -21,6 +22,7 @@ const initialState = {
           account: action.payload.account,
           cFont: action.payload.cFont,
           eBitcoin: action.payload.eBitcoin,
+          eBTCMarket: action.payload.eBTCMarket,
           web3: action.payload.web3,
         };
       case "CONNECTION_FAILED":

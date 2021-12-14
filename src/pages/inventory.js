@@ -63,7 +63,7 @@ const Inventory = (props) => {
         <s.SpacerLarge/>
         <s.SpacerLarge/>
         {bigInt(props.data.tokenAllow) > bigInt(200 * 10**18) ? 
-        (<button className= "button button2"
+        (<s.button
           disabled={loading || (parseFloat(props.data.eBTCamount) / 10**18) < 200 ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
@@ -71,7 +71,7 @@ const Inventory = (props) => {
           }}
         >
           Mint cFont (200 eBTC)
-        </button>) :  (<button className= "button button2"
+        </s.button>) :  (<s.button
           disabled={loading || props.blockchain.eBitcoin == null || props.blockchain.account == null  ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
@@ -79,7 +79,7 @@ const Inventory = (props) => {
           }}
         >
           {props.blockchain.eBitcoin == null || props.blockchain.account == null  ? "Please login" : "Allow Token"}
-        </button>)}
+        </s.button>)}
         
         <s.SpacerMedium />
           <s.Container jc={"center"} fd={"row"} style={{ flexWrap: "wrap"}}>
@@ -97,21 +97,6 @@ const Inventory = (props) => {
                       <s.TextDescription>POWER: {item.Power}</s.TextDescription>
                       <s.TextDescription>Size: {(20 + (item.Size % 80)) + 'px'}</s.TextDescription>
                       <s.Container fd={"row"}>
-                      {/* <button className="button-s button2 feed" onClick={(e) => {
-                      e.preventDefault();
-                      allowToken();
-                      }}>
-                        <FontAwesomeIcon 
-                       icon={faDrumstickBite} /> </button>
-                       <button 
-                       value={item.id}
-                       className="button-s button2 trash" 
-                       onClick={(e) => {
-                      e.preventDefault();
-                      reverseSwap(item.id);
-                      }}>
-                        <FontAwesomeIcon value={item.id} icon={faTrash} /> 
-                        </button> */}
                       </s.Container>
                     </s.Container>
                   </s.Container>

@@ -4,6 +4,7 @@ import { fetchData } from "../../redux/data/dataActions";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "../../redux/blockchain/blockchainActions";
 import {LinkContainer} from 'react-router-bootstrap';
+import * as s from "../../styles/global";
 import "../../App.css";
 
 const Navigation = () => {
@@ -54,18 +55,18 @@ const Navigation = () => {
                 </Nav.Link>
                 </Nav>
                 {blockchain.account == null || blockchain.cFont == null ? (
-          <button className= "login button button2"
+          <s.button
             onClick={(e) => {
               e.preventDefault();
               dispatch(connect());
             }}>
           CONNECT
-        </button>
+        </s.button>
     ) : (
-      <button className= "login address button button2" onClick={(e) => {
+      <s.button className= "address text-collapse" onClick={(e) => {
         e.preventDefault();
         window.location.href = window.location.href
-      }}>{blockchain.account}</button>
+      }}>{blockchain.account}</s.button>
     )}
                 </Navbar.Collapse>
             </Container>

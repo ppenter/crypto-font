@@ -2,13 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Modak&family=VT323&display=swap');
 
 :root {
-  --primary: #C3073F;
-  --secondary: #950740;
+  --clr-neon: hsl(56, 100%, 52%, 1);
+  --clr-bg: hsl(56, 100%, 40%);
+  --primary: hsl(56, 100%, 52%);
+  --secondary: hsl(56, 100%, 40%);
   --unfocus: #6F2232;
   --disable: #4E4E50;
   --background: #1A1A1D;
   --blue: #1e90ff;
   --white: #ffffff;
+  --text: #ffffff;
 }
 
 .alignRight{
@@ -187,12 +190,17 @@ nav {
   max-width: 150px;
   max-width: 150px;
   overflow: hidden;
-   text-overflow: ellipsis;
-   display: -webkit-box;
-   -webkit-line-clamp: 0; /* number of lines to show */
-           line-clamp: 0;
-   -webkit-box-orient: vertical;
+   
    padding-right: 32px;
+}
+
+.text-collapse{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 0; /* number of lines to show */
+          line-clamp: 0;
+  -webkit-box-orient: vertical;
 }
 
 
@@ -225,6 +233,7 @@ button:disabled {
 
 body {
   background-color: var(--background);
+  color: var(--text);
 }
 
 * {
