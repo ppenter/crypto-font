@@ -5,7 +5,7 @@ import ListingForm from '../components/Market/ListingForm';
 import SellingInfo from '../components/Market/SellingInfo';
 import ConfirmDialong from "../components/ConfirmDialog";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchData } from "../redux/data/dataActions";
+import { fetchMarket } from "../redux/marketData/marketDataActions";
 import { useEffect, useState } from "react";
 import { fetchcFont } from "../redux/cFontInfo/cFontInfoActions";
 import { useParams } from 'react-router';
@@ -16,32 +16,52 @@ const FontInfo = (props) => {
 
     const {id} = useParams();
     const dispatch = useDispatch();
+    const market = useSelector((state) => state.market);
     const font = useSelector((state) => state.font);
-    const [loading, setLoading] = useState(false);
+    const data = useSelector((state) => state.data);
     const [openPopup, setOpenPopup] = useState(false);
 
     useEffect(() => {
         dispatch(fetchcFont(id));
+        dispatch(fetchMarket());
       }, [id,dispatch]);
     
       const marketAddress = eBTCMarket.networks[process.env.REACT_APP_networkID].address;
       let fontowner = font.cFontOwner;
       let o = fontowner.toLowerCase();
 
-      console.log(font.activeList);
+      const list = {
+        id: "",
+        seller: "",
+        price: "",
+        time: "",
+        tokenId: "",
+      }
+
+      market.activeList.map(function(item, i){
+        if(item.tokenId == id){
+          list.id = item.listingId;
+          list.seller = item.seller;
+          list.price = item.price;
+          list.time = item.timestamp;
+          list.tokenId = item.tokenId;
+        }
+      })
+
+      // console.log(market.activeList);
     
   return (
       <s.Screen>
           <s.SpacerLarge/>
           <s.SpacerLarge/>
-            <s.Container jc={"center"} fd={"row"} style={{ flexWrap: "wrap"}}>
+            <s.Container ai="center" jc={"space-evenly"} fd={"row"} style={{ flexWrap: "wrap"}}>
+                <s.Container ai="center" jc="center">
                 <Cfontrenderer font={font.cFontInfo}></Cfontrenderer>
+                </s.Container>
             <s.Container>
-
             <Cfontinforenderer font={font.cFontInfo} owner={o == marketAddress.toLowerCase() ? ("Selling") : (font.cFontOwner)}></Cfontinforenderer>
             {props.blockchain.account == o ? (
-                  <s.Container flex="1" fd="column" jc="space-evenly" ai="center"style={{ }}>
-                    {}
+                  <s.Container fd="row" jc="space-evenly" ai="center"style={{ flexWrap: "wrap"}}>
                     <s.button
                       onClick = {() => setOpenPopup(true)}
                     >Sell</s.button>
@@ -52,19 +72,19 @@ const FontInfo = (props) => {
                 )}
             </s.Container>
             </s.Container>
-            <s.Container flex="1" fd="column" jc="center" ai="center" mxw="980px" mxh="980px" style={{}}>
-            <SellingInfo id = {id} list = {font.activeList}></SellingInfo>
+            <s.Container flex="1" fd="column" jc="center" ai="center" style={{}}>
+            {market.onsale.indexOf(id) > -1 ? (<SellingInfo id = {id} blockchain={props.blockchain} data={props.data} list = {list}></SellingInfo>):(null)}
             </s.Container>
             <s.Container>
               
             </s.Container>
-
+          
           <ConfirmDialong
           openPopup = {openPopup}
           setOpenPopup = {setOpenPopup}
           title = "Selling"
           >
-          <ListingForm blockchain = {props.blockchain} id = {id}></ListingForm>
+          <ListingForm data={data} font={props.font} blockchain = {props.blockchain} id = {id}></ListingForm>
           </ConfirmDialong>
           
         </s.Screen>

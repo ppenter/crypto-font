@@ -5,6 +5,7 @@ import eBitcoin from "../../contracts/eBitcoin.json";
 import cFont from "../../contracts/cryptoFont.json";
 // log
 import { fetchData } from "../data/dataActions";
+import { fetchMarket } from "../marketData/marketDataActions";
 
 const connectRequest = () => {
   return {
@@ -99,5 +100,6 @@ export const updateAccount = (account) => {
   return async (dispatch) => {
     dispatch(updateAccountRequest({ account: account }));
     dispatch(fetchData(account));
+    dispatch(fetchMarket());
   };
 };

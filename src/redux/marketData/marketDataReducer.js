@@ -1,6 +1,8 @@
 const initialState = {
     loading: false,
     onsale: [],
+    activeList: [],
+    allFont: [],
     error: false,
     errorMsg: "",
   };
@@ -17,6 +19,8 @@ const initialState = {
           ...initialState,
           loading: false,
           onsale: action.payload.onsale,
+          activeList: action.payload.activeList,
+          allFont: action.payload.allFont,
         };
       case "CHECK_Market_FAILED":
         return {

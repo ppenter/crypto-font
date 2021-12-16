@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import * as s from "../styles/global";
 import Cfontrenderer from '../components/cFontRenderer';
 import bigInt from 'big-integer';
+import Price from '../components/Market/Price';
 import {
     NavLink,
 } from "../components/Navbar/NavbarElements.js";
@@ -17,40 +18,27 @@ const Marketplace = (props) => {
     useEffect(() => {
           dispatch(fetchMarket());
       }, [dispatch]);
+
+      console.log(props.market.activeList)
     
   return (
     <s.Screen>
       <s.SpacerMedium />
           <s.Container jc={"center"} fd={"row"} style={{ flexWrap: "wrap"}}>
-            {props.data.allFont.map((item, index) => {
+            {props.market.allFont.map((item, index) => {
               if(props.market.onsale.indexOf(item.id)>-1){
                 return (
                     <NavLink key={item.id} to={"/font/"+item.id}>
-                  <s.Container className="Fontcard m-5" key={index} style={{ padding: "15px" }}>
+                  <s.Container className="Fontcard" key={index} style={{ padding: "15px" }}>
                       <Cfontrenderer font={item}/>
-                    {/* <cFontRenderer className="phudImg" font={item} /> */}
                     <s.SpacerXSmall />
                     <s.Container>
                       <s.TextID>#{item.id}</s.TextID>
                       <s.TextDescription>NAME: {item.name}</s.TextDescription>
                       <s.TextDescription>POWER: {item.Power}</s.TextDescription>
                       <s.TextDescription>Size: {(20 + (item.Size % 80)) + 'px'}</s.TextDescription>
+                      <Price id={item.id} currency={"$eBTC"} list={props.market.activeList}/>
                       <s.Container fd={"row"}>
-                      {/* <button className="button-s button2 feed" onClick={(e) => {
-                      e.preventDefault();
-                      allowToken();
-                      }}>
-                        <FontAwesomeIcon 
-                       icon={faDrumstickBite} /> </button>
-                       <button 
-                       value={item.id}
-                       className="button-s button2 trash" 
-                       onClick={(e) => {
-                      e.preventDefault();
-                      reverseSwap(item.id);
-                      }}>
-                        <FontAwesomeIcon value={item.id} icon={faTrash} /> 
-                        </button> */}
                       </s.Container>
                     </s.Container>
                   </s.Container>

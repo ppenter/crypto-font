@@ -1,11 +1,13 @@
 const initialState = {
     loading: false,
-    allFont: [],
     MyFont: [],
     eBTCamount: 0,
     tokenAllow: 0,
     eBTCApproveToMarket: 0,
     cFontApproveToMarket: false,
+    eBTCreward: 0,
+    ETHreward: 0,
+    pastDistributedReward: 0,
     error: false,
     errorMsg: "",
   };
@@ -21,12 +23,14 @@ const initialState = {
         return {
           ...initialState,
           loading: false,
-          allFont: action.payload.allFont,
           MyFont: action.payload.MyFont,
           tokenAllow: action.payload.tokenAllow,
           eBTCamount: action.payload.eBTCamount,
           eBTCApproveToMarket: action.payload.eBTCApproveToMarket,
           cFontApproveToMarket: action.payload.cFontApproveToMarket,
+          pastDistributedReward: action.payload.pastDistributedReward,
+          eBTCreward: action.payload.eBTCreward,
+          ETHreward: action.payload.ETHreward,
         };
       case "CHECK_DATA_FAILED":
         return {

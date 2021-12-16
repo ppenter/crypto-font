@@ -4,6 +4,7 @@ import './App.css';
 import * as s from "./styles/global";
 import { fetchData } from "./redux/data/dataActions";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchMarket } from "./redux/marketData/marketDataActions";
 import {
   Routes,
   Route,
@@ -14,6 +15,7 @@ import Lands from "./pages/lands.js"
 import Inventory from "./pages/inventory.js"
 import Marketplace from "./pages/marketplace.js"
 import FontInfo from "./pages/font.js"
+import Play from "./pages/play";
 import Navigation from './components/Navbar';
 
 function App() {
@@ -21,14 +23,15 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const market = useSelector((state) => state.market);
-
-  console.log(market);
-  console.log(data);
-  console.log(blockchain);
+  const font = useSelector((state) => state.font);
+  // console.log(market);
+  // console.log(data);
+  // console.log(blockchain);
 
   useEffect(() => {
     if (blockchain.account !== "" && blockchain.cFont !== null) {
       dispatch(fetchData(blockchain.account));
+      dispatch(fetchMarket());
     }
   }, [blockchain.cFont,dispatch, blockchain.account]);
 
@@ -43,10 +46,11 @@ function App() {
       <Outlet />
         <Routes>
       <Route path="/" element={<Home/>} />
-      <Route path="/inventory" element={<Inventory blockchain={blockchain} data={data} />} />
+      <Route path="/inventory" element={<Inventory blockchain={blockchain} market={market} data={data} />} />
       <Route path="/land" element={<Lands/>} />
-      <Route path="/marketplace" element={<Marketplace blockchain={blockchain} market={market} data={useSelector((state) => state.data)} />}/>
-      <Route path="/font/:id" element={<FontInfo market={market} blockchain={blockchain}  />}/>
+      <Route path="/metaverse" element={<Play/>} />
+      <Route path="/marketplace" element={<Marketplace font={font} blockchain={blockchain} market={market} data={useSelector((state) => state.data)} />}/>
+      <Route path="/font/:id" element={<FontInfo market={market} data={data} blockchain={blockchain}  />}/>
       {/* <Route path="/play" element={<Play />} /> */}
     </Routes>
   </div>

@@ -3,7 +3,6 @@ const initialState = {
     cFontOwner: "",
     cFontInfo: [],
     price: 0,
-    activeList: [],
     error: false,
     errorMsg: "",
   };
@@ -22,7 +21,6 @@ const initialState = {
           cFontOwner: action.payload.cFontOwner,
           cFontInfo: action.payload.cFontInfo,
           price: action.payload.price,
-          activeList:action.payload.activeList,
         };
       case "CHECK_cFont_FAILED":
         return {

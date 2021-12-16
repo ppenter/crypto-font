@@ -29,7 +29,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
   let unicode = (eval('"\\u' + str + '"'));
 
   return (
-    <s.Container
+    <div
       style={{
         width: size,
         height: size,
@@ -44,7 +44,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
       }}
     >
       {unicode}
-    </s.Container>
+    </div>
   );
 };
 

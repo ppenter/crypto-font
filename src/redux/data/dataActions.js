@@ -26,14 +26,11 @@ export const fetchData = (account) => {
     dispatch(fetchDataRequest());
     try {
         
-      let allFont = await store
-        .getState()
-        .blockchain.cFont.methods.getcFont()
-        .call();
       let MyFont = await store
         .getState()
         .blockchain.cFont.methods.getIdsOfOwner(account)
         .call();
+
       let NFTaddress = await store
         .getState()
         .blockchain.cFont._address;
@@ -57,14 +54,28 @@ export const fetchData = (account) => {
         .getState()
         .blockchain.cFont.methods.isApprovedForAll(account, Marketaddress)
         .call();
+      let eBTCreward = await store
+        .getState()
+        .blockchain.cFont.methods.showReward()
+        .call();
+      let ETHreward = await store
+        .getState()
+        .blockchain.cFont.methods.showEthers()
+        .call();  
+      let pastDistributedReward = await store
+        .getState()
+        .blockchain.cFont.methods.pastDistributedReward()
+        .call();  
       dispatch(
         fetchDataSuccess({
-          allFont,
           MyFont,
           tokenAllow,
           eBTCamount,
           eBTCApproveToMarket,
           cFontApproveToMarket,
+          eBTCreward,
+          ETHreward,
+          pastDistributedReward,
         })
       );
     } catch (err) {

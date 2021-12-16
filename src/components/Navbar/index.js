@@ -54,6 +54,7 @@ const Navigation = () => {
                     {(parseFloat(data.eBTCamount).toFixed(2) / parseFloat(10**18)).toFixed(2) + " eBTC"}
                 </Nav.Link>
                 </Nav>
+                <s.Container ai="center">
                 {blockchain.account == null || blockchain.cFont == null ? (
           <s.button
             onClick={(e) => {
@@ -67,8 +68,9 @@ const Navigation = () => {
         e.preventDefault();
         window.location.href = window.location.href
       }}>{blockchain.account}</s.button>
-    )}
+    )}</s.Container>
                 </Navbar.Collapse>
+                
             </Container>
         </Navbar>
     );

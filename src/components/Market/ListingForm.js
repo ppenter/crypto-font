@@ -4,19 +4,41 @@ import { useEffect, useState } from "react";
 import Web3 from "web3";
 import { BigNumber } from "bignumber.js";
 import { fetchData } from "../../redux/data/dataActions";
-import { useDispatch} from "react-redux";
+import { fetchMarket } from "../../redux/marketData/marketDataActions";
+import { useDispatch, useSelector} from "react-redux";
+import { fetchcFont } from "../../redux/cFontInfo/cFontInfoActions";
 
 const ListingForm = (props) => {
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-
-    console.log(props.id);
+    const market = useSelector((state) => state.market);
+    console.log(props.blockchain);
 
     const sell = (id) => {
         setLoading(true);
         props.blockchain.eBTCMarket.methods
-          .listToken(props.blockchain.cFont._address, id, listingPrice)
+          .listToken(props.blockchain.cFont._address, props.id, listingPrice)
+          .send({
+            from: props.blockchain.account
+          })
+          .once("error", (err) => {
+            setLoading(false);
+            console.log(err);
+          })
+          .then((receipt) => {
+            setLoading(false);
+            console.log(receipt);
+            dispatch(fetchData(props.blockchain.account));
+            dispatch(fetchMarket());
+            dispatch(fetchcFont(props.id));
+          });
+      };
+
+      const approve = () => {
+        setLoading(true);
+        props.blockchain.cFont.methods
+          .setApprovalForAll(props.blockchain.eBTCMarket._address, "true")
           .send({
             from: props.blockchain.account
           })
@@ -32,28 +54,43 @@ const ListingForm = (props) => {
       };
 
       const [listingPrice, setListingPrice] = useState('0')
-      console.log(listingPrice);
+      console.log(props.blockchain.cFont._address);
 
-    return (
-    <s.Container>
-    price
-    <s.Input type="number" min="0"
-    onChange={ 
-        (e) => setListingPrice(e.target.value != "" ? (
-            Web3.utils.toWei((e.target.value).toString())
-        ) : (
-            0
-        ))
-    }
-    ></s.Input>
-    <s.SpacerLarge></s.SpacerLarge>
-    <s.Container flex="1" fd="row" jc="space-evenly" ai="center">
-    <s.button onClick={(e) => { 
-        e.preventDefault();
-        sell(props.id);
-    }}>SELL</s.button>
-    </s.Container>
-    </s.Container>
-    );
+      if(market.onsale.indexOf(props.id) > -1){
+        return(
+          "This cFont is already listed!"
+        )
+      }else{
+        return (
+          <s.Container>
+          price
+          <s.Input type="number" min="0"
+          onChange={ 
+              (e) => setListingPrice(e.target.value != "" ? (
+                  Web3.utils.toWei((e.target.value).toString())
+              ) : (
+                  0
+              ))
+          }
+          ></s.Input>
+          <s.SpacerLarge></s.SpacerLarge>
+          <s.Container flex="1" fd="row" jc="space-evenly" ai="center">
+            {props.data.cFontApproveToMarket ? (
+              <s.button onClick={(e) => { 
+              e.preventDefault();
+              sell(props.id);
+          }}>SELL</s.button>
+            ): (
+              <s.button onClick={(e) => { 
+                e.preventDefault();
+                approve();
+            }}>APPROVE</s.button>
+            )}
+          
+          </s.Container>
+          </s.Container>
+          );
+      }
+    
 };
 export default ListingForm;

@@ -10,16 +10,16 @@ const Cfontinforenderer = ({ font = null,size = 500, style, owner= "" }) => {
 
 
   return (
-    <s.Screen>
-        <s.Container ai="center">
-            <s.Container w="80%" ai="center">
-            <s.TextDescription>Name: {font.name}</s.TextDescription>
-      <s.TextDescription>ID: {font.id}</s.TextDescription>
-      <s.TextDescription>DNA: {dnaStr}</s.TextDescription>
-      <s.TextDescription >Owner: {owner}</s.TextDescription>
-      <s.TextDescription>Rarity: {font.rarity}</s.TextDescription>
-    </s.Container>
-    </s.Container>
+    <s.Screen className="text-collapse" style={{padding: 20}}>
+      <s.Container ai="start">
+        <s.TextDescription>Name: {font.name}</s.TextDescription>
+        <s.TextDescription>ID: {font.id}</s.TextDescription>
+        <s.TextDescription>DNA: {dnaStr}</s.TextDescription>
+        <s.TextDescription>Rarity: {font.rarity}</s.TextDescription>
+        <s.TextDescription>Owner:</s.TextDescription>
+      <s.TextDescription className="address">{owner}</s.TextDescription>
+      </s.Container>
+      
     </s.Screen>
   );
 };

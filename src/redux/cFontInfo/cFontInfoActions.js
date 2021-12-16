@@ -27,7 +27,7 @@ export const fetchcFont = (id) => {
   return async (dispatch) => {
     dispatch(fetchcFontRequest());
 
-    console.log(process.env.REACT_APP_networkID);
+    // console.log(process.env.REACT_APP_networkID);
     let web3 = new Web3(process.env.REACT_APP_RPC);
     try {
         const deployedNetwork = cFont.networks[process.env.REACT_APP_networkID];
@@ -44,15 +44,12 @@ export const fetchcFont = (id) => {
         let cFontOwner = await cFontContract.methods.ownerOf(id).call()
         let cFontInfo = await cFontContract.methods.cFonts(id).call()
         let price = await marketContract.methods.getPriceOfId(cFontContract._address,id).call()
-        console.log(price);
-        let activeList = await marketContract.methods.getActiveArrayOfContract(cFontContract._address).call()
+        // console.log(price);
       dispatch(
         fetchcFontSuccess({
             cFontOwner,
             cFontInfo,
             price,
-            activeList,
-
         })
       );
     } catch (err) {

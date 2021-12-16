@@ -1,10 +1,12 @@
 import React from 'react';
 import { fetchData } from "../redux/data/dataActions";
+import { fetchMarket } from '../redux/marketData/marketDataActions';
 import { useDispatch} from "react-redux";
 import { useEffect, useState } from "react";
 import * as s from "../styles/global";
 import Cfontrenderer from '../components/cFontRenderer';
 import bigInt from 'big-integer';
+import Price from '../components/Market/Price';
 import {
     NavLink,
 } from "../components/Navbar/NavbarElements.js";
@@ -19,7 +21,7 @@ const Inventory = (props) => {
         if (props.blockchain.account !== "" && props.blockchain.cFont !== null) {
           dispatch(fetchData(props.blockchain.account));
         }
-      }, [props.blockchain.cFont,props.blockchain.account,dispatch]);
+      }, [dispatch]);
     
       const allowToken = () => {
         setLoading(true);
@@ -53,15 +55,56 @@ const Inventory = (props) => {
             setLoading(false);
             console.log(receipt);
             dispatch(fetchData(props.blockchain.account));
+            dispatch(fetchMarket());
           });
       };
+
+      const getReward = () => {
+        setLoading(true);
+        props.blockchain.cFont.methods
+          .getAllReward()
+          .send({
+            from: props.blockchain.account
+          })
+          .once("error", (err) => {
+            setLoading(false);
+            console.log(err);
+          })
+          .then((receipt) => {
+            setLoading(false);
+            console.log(receipt);
+            dispatch(fetchData(props.blockchain.account));
+            dispatch(fetchMarket());
+          });
+      };
+
+      const getEthers = () => {
+        setLoading(true);
+        props.blockchain.cFont.methods
+          .getAllEthers()
+          .send({
+            from: props.blockchain.account
+          })
+          .once("error", (err) => {
+            setLoading(false);
+            console.log(err);
+          })
+          .then((receipt) => {
+            setLoading(false);
+            console.log(receipt);
+            dispatch(fetchData(props.blockchain.account));
+            dispatch(fetchMarket());
+          });
+      };
+
+      const date = new Date(props.data.pastDistributedReward*100);
     
-      
 
   return (
     <s.Container ai={"center"} style={{ }}>
         <s.SpacerLarge/>
         <s.SpacerLarge/>
+        <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
         {bigInt(props.data.tokenAllow) > bigInt(200 * 10**18) ? 
         (<s.button
           disabled={loading || (parseFloat(props.data.eBTCamount) / 10**18) < 200 ? 1 : 0}
@@ -71,7 +114,8 @@ const Inventory = (props) => {
           }}
         >
           Mint cFont (200 eBTC)
-        </s.button>) :  (<s.button
+        </s.button>
+          ) :  (<s.button
           disabled={loading || props.blockchain.eBitcoin == null || props.blockchain.account == null  ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
@@ -80,22 +124,51 @@ const Inventory = (props) => {
         >
           {props.blockchain.eBitcoin == null || props.blockchain.account == null  ? "Please login" : "Allow Token"}
         </s.button>)}
+        <s.TextDescription>{date.toLocaleDateString("en-US")}</s.TextDescription>
+        </s.Container>
+
+        <s.SpacerMedium />
+        <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
+        <s.button
+          disabled={loading || (parseFloat(props.data.eBTCamount) / 10**18) < 200 ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            getReward();
+          }}
+        >
+          WITHDRAW $eBTC
+        </s.button>
+        <s.button
+          disabled={loading || (parseFloat(props.data.eBTCamount) / 10**18) < 200 ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            getEthers();
+          }}
+        >
+          WITHDRAW ETH
+        </s.button>
+        </s.Container>
         
         <s.SpacerMedium />
-          <s.Container jc={"center"} fd={"row"} style={{ flexWrap: "wrap"}}>
-            {props.data.allFont.map((item, index) => {
+        <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
+        <s.TextDescription>eBTC reward: {(parseFloat(props.data.eBTCreward) /10**18).toFixed(2)}</s.TextDescription>
+        <s.TextDescription>ETH reward: {(parseFloat(props.data.ETHreward) /10**18).toFixed(2)}</s.TextDescription>
+        </s.Container>
+        <s.SpacerMedium />
+
+          <s.Container jc={"space-evenly"} fd={"row"} style={{ flexWrap: "wrap"}}>
+            {props.market.allFont.map((item, index) => {
               if(props.data.MyFont.indexOf(item.id)>-1){
                 return (
-                    <NavLink key={item.id} to={"/font/"+item.id}>
-                  <s.Container className="Fontcard m-5" key={index} style={{ padding: "15px" }}>
+                <NavLink key={item.id} to={"/font/"+item.id}>
+                  <s.Container className="Fontcard" key={index} style={{ padding: "15px" }}>
                       <Cfontrenderer font={item}/>
                     {/* <cFontRenderer className="phudImg" font={item} /> */}
                     <s.SpacerXSmall />
                     <s.Container>
                       <s.TextID>#{item.id}</s.TextID>
                       <s.TextDescription>NAME: {item.name}</s.TextDescription>
-                      <s.TextDescription>POWER: {item.Power}</s.TextDescription>
-                      <s.TextDescription>Size: {(20 + (item.Size % 80)) + 'px'}</s.TextDescription>
+                      <s.TextDescription>RARITY: {item.rarity}</s.TextDescription>
                       <s.Container fd={"row"}>
                       </s.Container>
                     </s.Container>
@@ -104,6 +177,32 @@ const Inventory = (props) => {
                 );
               }
             })}
+
+            {props.market.activeList.map((item, index) => {
+              if(item.seller.toLowerCase() == props.blockchain.account.toLowerCase()){
+                
+                const list = props.market.allFont[item.tokenId];
+                return(
+                  <NavLink key={list.id} to={"/font/"+list.id}>
+                  <s.Container className="Fontcard" key={list.id} style={{ padding: "15px" }}>
+                      <Cfontrenderer font={list}/>
+                    {/* <cFontRenderer className="phudImg" font={item} /> */}
+                    <s.SpacerXSmall />
+                    <s.Container>
+                      <s.TextID>#{list.id}</s.TextID>
+                      <s.TextDescription>NAME: {list.name}</s.TextDescription>
+                      <s.TextDescription>RARITY: {list.rarity}</s.TextDescription>
+                      {/* <s.TextDescription>Size: {(20 + (list.Size % 80)) + 'px'}</s.TextDescription> */}
+                      <Price id={list.id} currency={"$eBTC"} list={props.market.activeList}/>
+                      <s.Container fd={"row"}>
+                      </s.Container>
+                    </s.Container>
+                  </s.Container>
+                  </NavLink>
+                )
+              }
+            })}
+          
           </s.Container>
           
       </s.Container>
