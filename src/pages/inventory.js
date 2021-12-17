@@ -113,7 +113,7 @@ const Inventory = (props) => {
             mint();
           }}
         >
-          Mint cFont (200 eBTC)
+          Mint cFont (100 eBTC)
         </s.button>
           ) :  (<s.button
           disabled={loading || props.blockchain.eBitcoin == null || props.blockchain.account == null  ? 1 : 0}
@@ -129,7 +129,7 @@ const Inventory = (props) => {
         <s.SpacerMedium />
         <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
         <s.button
-          disabled={loading || (parseFloat(props.data.eBTCamount) / 10**18) < 200 ? 1 : 0}
+          disabled={loading || (parseFloat(props.data.eBTCreward) / 10**18) <= 0 ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
             getReward();
@@ -138,7 +138,7 @@ const Inventory = (props) => {
           WITHDRAW $eBTC
         </s.button>
         <s.button
-          disabled={loading || (parseFloat(props.data.eBTCamount) / 10**18) < 200 ? 1 : 0}
+          disabled={loading || (parseFloat(props.data.ETHreward) / 10**18) <= 0 ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
             getEthers();

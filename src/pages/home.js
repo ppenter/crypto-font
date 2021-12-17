@@ -1,5 +1,6 @@
 import React from 'react';
 import * as s from "../styles/global";
+import Roadmap from '../components/Infomation/Roadmap';
   
 const Home = (props) => {
 
@@ -33,6 +34,9 @@ const Home = (props) => {
             <s.TextDescription>
                 {/* - Isaak Solovev - */}
             </s.TextDescription>
+            <s.SpacerLarge/>
+            <s.SpacerLarge/>
+            <Roadmap></Roadmap>
             </s.Container>
             </s.Container>
     </s.Screen>

@@ -93,7 +93,7 @@ export const connect = () => {
           dispatch(connectFailed("Change network to BSC Testnet."));
         }
       } catch (err) {
-        dispatch(connectFailed(err));
+        dispatch(connectFailed("Error while loading web3"));
       }
     } else {
       dispatch(connectFailed("Install Metamask."));

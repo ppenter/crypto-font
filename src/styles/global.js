@@ -65,7 +65,8 @@ export const Slideshow = styled.div`
   `;
 
 export const TextTitle = styled.p`
-  color: var(--white);
+color: var(--primary);
+text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
   font-size: 36px;
   font-weight: 500;
 `;
@@ -116,10 +117,11 @@ export const Input = styled.input`
 export const button = styled.button`
   background-color: transparent;
   text-decoration: none;
-  color: var(--primary);
+  
   border: var(--primary) 0.125em solid;
   padding: 0.25em 1em;
   border-radius: 0.25em;
+  color: var(--primary);
   text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
   box-shadow: inset 0 0 0.5em 0 var(--primary), 0 0 0.5em 0 var(--primary);
   :disabled{

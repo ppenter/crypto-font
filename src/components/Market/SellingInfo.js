@@ -75,7 +75,13 @@ const SellingInfo = (props) => {
           });
       };
 
+      const isApprove = bigInt(props.data.eBTCApproveToMarket) > bigInt(props.list.price);
+
       console.log(props.list)
+
+      console.log(props.data.eBTCApproveToMarket)
+
+      console.log(props.list.price)
 
       const seller = props.list.seller.toLowerCase()
 
@@ -91,8 +97,9 @@ const SellingInfo = (props) => {
                             <s.TextDescription>PRICE: {parseFloat(props.list.price / 10**18).toFixed(4)} $eBTC</s.TextDescription>
                             
                         </s.Container>
-                        <s.Container fd="row" jc="space-evenly" ai="center">
-                            {bigInt(props.data.eBTCApproveToMarket) >= bigInt(props.list.price) ? (
+                        {props.blockchain.account != null  ? (
+                          <s.Container fd="row" jc="space-evenly" ai="center">
+                            {!isApprove ? (
                                 <s.button onClick={(e) => { 
                                     e.preventDefault();
                                     approveEBTCToMarket();
@@ -100,7 +107,7 @@ const SellingInfo = (props) => {
                             ) : (
                                 null
                             )}
-                            {props.blockchain.account != null && props.blockchain.account != seller ? (
+                            {isApprove && props.blockchain.account != null && props.blockchain.account != seller ? (
                                 <s.button onClick={(e) => { 
                                     e.preventDefault();
                                     buy(props.list.id);
@@ -118,6 +125,8 @@ const SellingInfo = (props) => {
                             )}
                             
                         </s.Container>
+                        ) : (null)}
+                        
                     </s.Container>
     </s.Container>
     );

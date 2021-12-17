@@ -105,7 +105,7 @@ contract cryptoFont is ERC721Enumerable, Ownable  {
 
     function createRandomcFont() public{
         require(eBitcoin.balanceOf(msg.sender) >= cost);
-        eBitcoin.transferFrom(msg.sender,address(this), cost);
+        require(eBitcoin.transferFrom(msg.sender,address(this), cost));
         rewardPool+= (cost-fee);
         feePool+=fee;
         string memory name = concatenate("cFont #",uint2str(COUNTER));
@@ -142,21 +142,44 @@ contract cryptoFont is ERC721Enumerable, Ownable  {
         return rarity;
     }
 
+    function countAllReward() public view returns(uint256){
+        uint256 reward = 0;
+        uint256 i;
+        for (i=0;i<COUNTER;i++){
+            reward+=tokenToReward[i];
+        }
+        
+        return reward;
+    }
+
+    function countAllEthers() public view returns(uint256){
+        uint256 reward = 0;
+        uint256 i;
+        for (i=0;i<COUNTER;i++){
+            reward+=tokenToEthers[i];
+        }
+        
+        return reward;
+    }
+
+
     function remainingEthers() public view returns(uint256){
-        return address(this).balance - distributedEthers;
+        return address(this).balance - countAllEthers();
+    }
+
+    function remainingeBTC() public view returns(uint256){
+        return eBitcoin.balanceOf(address(this)) - countAllReward() - feePool;
     }
 
     function DistributeReward() public{
         require(block.timestamp > pastDistributedReward);
         uint256 amount = feePool;
 
-        if(miningPool > feePool){
+        if(remainingeBTC() > feePool){
             amount += feePool;
-            miningPool -= feePool;
         }
         else{
-            amount += miningPool;
-            miningPool = 0;
+            amount += remainingeBTC();
         }
 
         uint256 reward = amount;
@@ -169,7 +192,6 @@ contract cryptoFont is ERC721Enumerable, Ownable  {
             tokenToEthers[i] += ethersPerRare * _getRarity(i);
         }
 
-        distributedEthers += remainingEthers();
         feePool = 0;
         pastDistributedReward = block.timestamp;
     }
@@ -230,6 +252,12 @@ contract cryptoFont is ERC721Enumerable, Ownable  {
 
     function getTimeRemain() public view returns(uint256){
         return (pastDistributedReward + 7 days) - block.timestamp;
+    }
+
+    function AddeBTCFee(uint256 _amount) public{
+        require(eBitcoin.balanceOf(msg.sender) >= _amount);
+        require(eBitcoin.transferFrom(msg.sender,address(this), _amount));
+        feePool += _amount;
     }
 
     function getIdsOfOwner(address _owner) public view returns (uint[] memory) {
