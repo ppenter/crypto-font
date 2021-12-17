@@ -38,7 +38,7 @@
     "web3": "^1.6.1"
   },
   "scripts": {
-    "start": "serve -s build",
+    "start": "react-scripts start",
     "start:development": "env-cmd -f .env.development react-scripts start",
     "start:production": "env-cmd -f .env.production react-scripts start",
     "build": "react-scripts build",
