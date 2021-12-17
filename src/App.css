@@ -40,6 +40,13 @@
 .main {
   margin: 10%;
 }
+.text-collapse{
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  text-align: center;
+}
 
 .address {
   overflow: hidden;

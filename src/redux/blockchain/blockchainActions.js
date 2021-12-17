@@ -46,15 +46,20 @@ export const connect = () => {
         const accounts = await window.ethereum.request({
           method: "eth_accounts",
         });
+
+        const network = await window.ethereum.request({
+          method: "net_version",
+        });
+
         const networkId = process.env.REACT_APP_networkID;
 
-        console.log(networkId);
+        console.log(network);
 
         const cFontNetworkData = await cFont.networks[networkId];
         const eBitcoinNetworkData = await eBitcoin.networks[networkId];
         const eBTCMarketNetworkData = await eBTCMarket.networks[networkId];
         
-        if (cFontNetworkData && eBitcoinNetworkData && eBTCMarketNetworkData) {
+        if (cFontNetworkData && eBitcoinNetworkData && eBTCMarketNetworkData && networkId == network) {
           const cFontContract = new web3.eth.Contract(
             cFont.abi,
             cFontNetworkData.address

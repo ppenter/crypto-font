@@ -10,7 +10,7 @@ const Cfontinforenderer = ({ font = null,size = 500, style, owner= "" }) => {
 
 
   return (
-    <s.Screen className="text-collapse" style={{padding: 20}}>
+    <s.Screen className="text-collapse" style={{padding: 20, textAlign: "left"}}>
       <s.Container ai="start">
         <s.TextDescription>Name: {font.name}</s.TextDescription>
         <s.TextDescription>ID: {font.id}</s.TextDescription>

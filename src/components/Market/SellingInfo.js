@@ -84,7 +84,7 @@ const SellingInfo = (props) => {
     <s.SpacerLarge></s.SpacerLarge>
                     <s.Container>
                         <s.Container jc="space-evenly" ai="center">
-                            <s.TextDescription>SELLER: {seller}</s.TextDescription>
+                            <s.TextDescription className="text-collapse">SELLER: {seller}</s.TextDescription>
                             
                         </s.Container>
                         <s.Container fd="row" jc="space-evenly" ai="center">
