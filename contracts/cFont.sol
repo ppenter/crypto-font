@@ -172,7 +172,7 @@ contract cryptoFont is ERC721Enumerable, Ownable  {
     }
 
     function DistributeReward() public{
-        require(block.timestamp > pastDistributedReward);
+        require(block.timestamp > pastDistributedReward + 7 days);
         uint256 amount = feePool;
 
         if(remainingeBTC() > feePool){

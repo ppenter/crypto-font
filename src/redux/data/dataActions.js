@@ -59,7 +59,6 @@ export const fetchData = (account) => {
 
       // let eBTCreward = 0;
       // let ETHreward = 0;
-      console.log(account);
       const eBTCreward = await store
         .getState()
         .blockchain.cFont.methods.showReward(account)

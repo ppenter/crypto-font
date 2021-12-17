@@ -17,6 +17,7 @@ import Marketplace from "./pages/marketplace.js"
 import FontInfo from "./pages/font.js"
 import Play from "./pages/play";
 import Navigation from './components/Navbar';
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,14 +39,14 @@ function App() {
 
 
   return (
-    <div>
+    <s.Screen>
       <Navigation/>
     <s.Container  ai="center">
     <s.TextDescription>{blockchain.errorMsg !== "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
     </s.Container>
       <Outlet />
         <Routes>
-      <Route path="/" element={<Home/>} />
+      <Route path="/" element={<Home market={market}/>} />
       <Route path="/inventory" element={<Inventory blockchain={blockchain} market={market} data={data} />} />
       <Route path="/land" element={<Lands/>} />
       <Route path="/metaverse" element={<Play/>} />
@@ -53,7 +54,12 @@ function App() {
       <Route path="/font/:id" element={<FontInfo market={market} data={data} blockchain={blockchain}  />}/>
       {/* <Route path="/play" element={<Play />} /> */}
     </Routes>
-  </div>
+    <s.SpacerLarge/>
+    <s.SpacerLarge/>
+    <s.SpacerLarge/>
+    <Footer/>
+  </s.Screen>
+  
 );
 }
 

@@ -3,7 +3,9 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "./ebitcoin.sol";
+import "./icFont.sol";
 
 contract Market {
 	enum ListingStatus {
@@ -46,14 +48,19 @@ contract Market {
 		uint256 timestamp
 	);
 
-	
+	string private _name = "eBTC Marketplace";
 
 	uint256 private _listingId = 0;
 	mapping(uint256 => Listing) private _listings;
 	IERC20 eBTC;
+	icFont cFont;
+	address _owner;
+	uint256 public fee = 5;
 
-	constructor(address eBTCAddress){
+	constructor(address eBTCAddress, address cFontAddress){
 		eBTC = IERC20(eBTCAddress);
+		cFont = icFont(cFontAddress);
+		_owner = msg.sender;
 	}
 
 	function listToken(address token, uint256 tokenId, uint256 price) external {
@@ -88,6 +95,11 @@ contract Market {
 		
 	}
 
+	function setFee(uint256 _fee) public{
+		require(msg.sender == _owner);
+		fee = _fee;
+	}
+
 	function getListing(uint256 listingId) public view returns (Listing memory) {
 		return _listings[listingId];
 	}
@@ -104,7 +116,9 @@ contract Market {
 
 		IERC721(listing.token).transferFrom(address(this), msg.sender, listing.tokenId);
 		eBTC.transferFrom(msg.sender, address(this), listing.price);
-		eBTC.transfer(listing.seller, listing.price);
+		uint256 _fee = listing.price * fee / 100;
+		cFont.AddeBTCFee(fee);
+		eBTC.transfer(listing.seller, (listing.price - _fee));
 		// payable(listing.seller).transfer(listing.price);
 
 		emit Sale(

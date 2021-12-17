@@ -72,8 +72,8 @@ text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
 `;
 
 export const TextSubTitle = styled.p`
-  color: var(--white);
-  font-size: 20px;
+color: var(--primary);
+  font-size: 24px;
   font-weight: 500;
 `;
 
@@ -118,12 +118,13 @@ export const button = styled.button`
   background-color: transparent;
   text-decoration: none;
   
-  border: var(--primary) 0.125em solid;
+  
   padding: 0.25em 1em;
   border-radius: 0.25em;
   color: var(--primary);
   text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em currentColor;
   box-shadow: inset 0 0 0.5em 0 var(--primary), 0 0 0.5em 0 var(--primary);
+  border: var(--primary) 0.125em solid;
   :disabled{
     background-color: transparent;
     box-shadow: none;

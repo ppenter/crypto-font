@@ -6,6 +6,6 @@ module.exports = function (deployer) {
   deployer.then(async () => {
     await deployer.deploy(eBitcoin);
     await deployer.deploy(cFont, eBitcoin.address);
-    await deployer.deploy(Market, eBitcoin.address);
+    await deployer.deploy(Market, eBitcoin.address, cFont.address);
 });
 };

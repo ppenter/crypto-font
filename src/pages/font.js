@@ -54,12 +54,13 @@ const FontInfo = (props) => {
       <s.Screen>
           <s.SpacerLarge/>
           <s.SpacerLarge/>
-            <s.Container ai="center" jc={"space-evenly"} fd={"row"} style={{ flexWrap: "wrap"}}>
+            <s.Container ai="center" jc={"space-evenly"} fd={"column"} style={{ flexWrap: "wrap"}}>
                 <s.Container ai="center" jc="center">
                 <Cfontrenderer font={font.cFontInfo}></Cfontrenderer>
                 </s.Container>
+                <Cfontinforenderer font={font.cFontInfo} owner={o == marketAddress.toLowerCase() ? ("Selling") : (font.cFontOwner)}></Cfontinforenderer>
             <s.Container>
-            <Cfontinforenderer font={font.cFontInfo} owner={o == marketAddress.toLowerCase() ? ("Selling") : (font.cFontOwner)}></Cfontinforenderer>
+            
             {props.blockchain.account == o ? (
                   <s.Container fd="row" jc="space-evenly" ai="center"style={{ flexWrap: "wrap"}}>
                     <s.button

@@ -87,7 +87,7 @@ const SellingInfo = (props) => {
 
     return (
     <s.Container>
-    <s.SpacerLarge></s.SpacerLarge>
+    <s.SpacerLarge/>
                     <s.Container>
                         <s.Container jc="space-evenly" ai="center">
                             <s.TextDescription className="text-collapse">SELLER: {seller}</s.TextDescription>
@@ -97,6 +97,7 @@ const SellingInfo = (props) => {
                             <s.TextDescription>PRICE: {parseFloat(props.list.price / 10**18).toFixed(4)} $eBTC</s.TextDescription>
                             
                         </s.Container>
+                        <s.SpacerLarge/>
                         {props.blockchain.account != null  ? (
                           <s.Container fd="row" jc="space-evenly" ai="center">
                             {!isApprove ? (
@@ -126,7 +127,7 @@ const SellingInfo = (props) => {
                             
                         </s.Container>
                         ) : (null)}
-                        
+                        <s.SpacerLarge/>
                     </s.Container>
     </s.Container>
     );

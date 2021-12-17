@@ -101,9 +101,11 @@ const Inventory = (props) => {
     
 
   return (
+    <s.Screen>
+      <s.SpacerLarge/>
+        <s.SpacerLarge/>
+    {props.blockchain.account ? (
     <s.Container ai={"center"} style={{ }}>
-        <s.SpacerLarge/>
-        <s.SpacerLarge/>
         <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
         {bigInt(props.data.tokenAllow) > bigInt(200 * 10**18) ? 
         (<s.button
@@ -175,6 +177,7 @@ const Inventory = (props) => {
                   </NavLink>
                 );
               }
+              <s.SpacerLarge/>
             })}
 
             {props.market.activeList.map((item, index) => {
@@ -200,14 +203,21 @@ const Inventory = (props) => {
                   </NavLink>
                 )
               }
+              <s.SpacerLarge/>
             })}
           
           </s.Container>
         ) : (null)}
           
           
-      </s.Container>
-
+      </s.Container>): (
+        <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
+          <s.button disabled={1}>
+          Please Login For minting
+        </s.button>
+        </s.Container>
+      )}
+      </s.Screen>
   );
         }
   

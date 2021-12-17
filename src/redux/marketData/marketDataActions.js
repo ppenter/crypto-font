@@ -45,12 +45,15 @@ export const fetchMarket = () => {
         let onsale = await MarketContract.methods.getOnsaleOfToken(cFontAddres).call()
         let activeList = await MarketContract.methods.getActiveArrayOfContract(cFontAddres).call()
         let allFont = await cFontContract.methods.getcFonts().call();
+        let remainingeBTC = await cFontContract.methods.remainingeBTC().call();
+        let remainingEthers = await cFontContract.methods.remainingEthers().call();
         
       dispatch(
         fetchMarketSuccess({
           onsale,
           activeList,
           allFont,
+          remainingeBTC,
         })
       );
     } catch (err) {
