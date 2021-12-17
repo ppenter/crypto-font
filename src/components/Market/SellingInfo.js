@@ -103,7 +103,7 @@ const SellingInfo = (props) => {
                             {props.blockchain.account != null && props.blockchain.account != seller ? (
                                 <s.button onClick={(e) => { 
                                     e.preventDefault();
-                                    buy();
+                                    buy(props.list.id);
                                 }}>BUY</s.button>
                             ):(
                                 null
