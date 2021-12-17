@@ -117,9 +117,9 @@ contract Market {
 		IERC721(listing.token).transferFrom(address(this), msg.sender, listing.tokenId);
 		eBTC.transferFrom(msg.sender, address(this), listing.price);
 		uint256 _fee = listing.price * fee / 100;
-		cFont.AddeBTCFee(fee);
+		eBTC.approve(address(cFont), listing.price);
+		cFont.AddeBTCFee(_fee);
 		eBTC.transfer(listing.seller, (listing.price - _fee));
-		// payable(listing.seller).transfer(listing.price);
 
 		emit Sale(
 			listingId,
