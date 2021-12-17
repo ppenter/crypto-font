@@ -124,7 +124,6 @@ const Inventory = (props) => {
         >
           {props.blockchain.eBitcoin == null || props.blockchain.account == null  ? "Please login" : "Allow Token"}
         </s.button>)}
-        <s.TextDescription>{date.toLocaleDateString("en-US")}</s.TextDescription>
         </s.Container>
 
         <s.SpacerMedium />

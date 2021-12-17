@@ -97,6 +97,7 @@ contract cryptoFont is ERC721Enumerable, Ownable  {
         cFont memory newcFont = cFont(_name, COUNTER, randDna, rarity, randStat, randPower,randSize,mint_date,false);
         cFonts.push(newcFont);
         tokenToReward[COUNTER] = 0;
+        tokenToEthers[COUNTER] = 0;
         _safeMint(msg.sender, COUNTER);
         emit NewcFont(msg.sender,COUNTER, randDna);
         COUNTER++;
@@ -173,10 +174,10 @@ contract cryptoFont is ERC721Enumerable, Ownable  {
         pastDistributedReward = block.timestamp;
     }
 
-    function showEthers() public view returns(uint256){
+    function showEthers(address account) public view returns(uint256){
         uint256 reward = 0;
-        for(uint256 i =0; i< balanceOf(msg.sender); i++){
-            reward += tokenToEthers[tokenOfOwnerByIndex(msg.sender, i)];
+        for(uint256 i =0; i< balanceOf(account); i++){
+            reward += tokenToEthers[tokenOfOwnerByIndex(account, i)];
         }
         return reward;
     }
@@ -198,10 +199,10 @@ contract cryptoFont is ERC721Enumerable, Ownable  {
 
     receive() external payable {}
 
-    function showReward() public view returns(uint256){
+    function showReward(address account) public view returns(uint256){
         uint256 reward = 0;
-        for(uint256 i =0; i< balanceOf(msg.sender); i++){
-            reward += tokenToReward[tokenOfOwnerByIndex(msg.sender, i)];
+        for(uint256 i =0; i< balanceOf(account); i++){
+            reward += tokenToReward[tokenOfOwnerByIndex(account, i)];
         }
         return reward;
     }

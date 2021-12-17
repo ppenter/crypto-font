@@ -24,9 +24,9 @@ function App() {
   const data = useSelector((state) => state.data);
   const market = useSelector((state) => state.market);
   const font = useSelector((state) => state.font);
-  // console.log(market);
-  // console.log(data);
-  // console.log(blockchain);
+  console.log(market);
+  console.log(data);
+  console.log(blockchain);
 
   useEffect(() => {
     if (blockchain.account !== "" && blockchain.cFont !== null) {
