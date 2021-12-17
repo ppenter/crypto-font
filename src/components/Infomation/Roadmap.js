@@ -12,7 +12,7 @@ const Roadmap = (props) => {
                 <s.TextDescription>• Built-in Marketplace</s.TextDescription>
                 </div>
             </s.Container>
-            <s.TextTitle >↓</s.TextTitle>
+            <s.TextDescription>↓</s.TextDescription>
             <s.TextTitle >Q2 - 2022</s.TextTitle>
             <s.Container jc="center" ai="center">
                 <div>
@@ -21,14 +21,14 @@ const Roadmap = (props) => {
                 <s.TextDescription>• NFT Marketplace</s.TextDescription>
                 </div>
             </s.Container>
-            <s.TextTitle >↓</s.TextTitle>
+            <s.TextDescription>↓</s.TextDescription>
             <s.TextTitle >Q3 - 2022</s.TextTitle>
             <s.Container jc="center" ai="center">
                 <div>
                 <s.TextDescription>• Metaverse Development</s.TextDescription>
                 </div>
             </s.Container>
-            <s.TextTitle >↓</s.TextTitle>
+            <s.TextDescription>↓</s.TextDescription>
             <s.TextTitle >Q4 - 2022</s.TextTitle>
             <s.Container jc="center" ai="center">
                 <div>

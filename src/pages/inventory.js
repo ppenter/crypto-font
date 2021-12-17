@@ -116,7 +116,7 @@ const Inventory = (props) => {
           Mint cFont (100 eBTC)
         </s.button>
           ) :  (<s.button
-          disabled={loading || props.blockchain.eBitcoin == null || props.blockchain.account == null  ? 1 : 0}
+          disabled={loading || bigInt(props.data.tokenAllow) >= bigInt(200 * 10**18)  ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
             allowToken();
@@ -154,7 +154,7 @@ const Inventory = (props) => {
         <s.TextDescription>ETH reward: {(parseFloat(props.data.ETHreward) /10**18).toFixed(2)}</s.TextDescription>
         </s.Container>
         <s.SpacerMedium />
-
+        {props.blockchain.account ? (
           <s.Container jc={"space-evenly"} fd={"row"} style={{ flexWrap: "wrap"}}>
             {props.market.allFont.map((item, index) => {
               if(props.data.MyFont.indexOf(item.id)>-1){
@@ -203,6 +203,8 @@ const Inventory = (props) => {
             })}
           
           </s.Container>
+        ) : (null)}
+          
           
       </s.Container>
 
