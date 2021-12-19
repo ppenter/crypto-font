@@ -65,7 +65,7 @@ export const fetchData = (account) => {
         .call();
       const ETHreward = await store
         .getState()
-        .blockchain.cFont.methods.showEthers("0xd78958ef33f82cfad358f2a855a06c059542598f")
+        .blockchain.cFont.methods.showEthers(account)
         .call();  
       let pastDistributedReward = await store
         .getState()

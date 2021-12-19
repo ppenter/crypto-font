@@ -24,6 +24,13 @@ module.exports = {
       timeoutBlocks: 200,
       skipDryRun: true
     },
+    ropsten: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/fc1094913ebd41a3853b32571ebe6bbb")
+      },
+      network_id: 3,
+      skipDryRun: true,
+    },
   },
 
   // Set default mocha options here, use special reporters etc.

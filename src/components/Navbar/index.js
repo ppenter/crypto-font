@@ -2,7 +2,7 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import React, { useEffect } from "react";
 import { fetchData } from "../../redux/data/dataActions";
 import { useDispatch, useSelector } from "react-redux";
-import { connect } from "../../redux/blockchain/blockchainActions";
+import { connect, clearCache } from "../../redux/blockchain/blockchainActions";
 import {LinkContainer} from 'react-router-bootstrap';
 import * as s from "../../styles/global";
 import "../../App.css";
@@ -64,9 +64,9 @@ const Navigation = () => {
           CONNECT
         </s.button>
     ) : (
-      <s.button className= "address text-collapse" onClick={(e) => {
+      <s.button className= "address text-collapse"  onClick={(e) => {
         e.preventDefault();
-        window.location.href = window.location.href
+        dispatch(clearCache());
       }}>{blockchain.account}</s.button>
     )}</s.Container>
                 </Navbar.Collapse>
