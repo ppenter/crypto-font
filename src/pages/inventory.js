@@ -7,6 +7,7 @@ import * as s from "../styles/global";
 import Cfontrenderer from '../components/cFontRenderer';
 import bigInt from 'big-integer';
 import Price from '../components/Market/Price';
+import Overall from '../components/Infomation/Overall';
 import {
     NavLink,
 } from "../components/Navbar/NavbarElements.js";
@@ -21,6 +22,7 @@ const Inventory = (props) => {
         if (props.blockchain.account !== "" && props.blockchain.cFont !== null) {
           dispatch(fetchData(props.blockchain.account));
         }
+        dispatch(fetchMarket());
       }, [dispatch]);
     
       const allowToken = () => {
@@ -101,11 +103,16 @@ const Inventory = (props) => {
     
 
   return (
-    <s.Screen>
+    <s.Container ai="center">
+      <s.SpacerLarge/>
+        <s.SpacerLarge/>
+        <s.Container w="80%" ai="center" jc="center" style={{ flexWrap: "wrap"}}>
+      <Overall market={props.market}/>
+      </s.Container>
       <s.SpacerLarge/>
         <s.SpacerLarge/>
     {props.blockchain.account ? (
-    <s.Container ai={"center"} style={{ }}>
+    <s.Container w="80%" ai="center" jc="center" style={{ flexWrap: "wrap"}}>
         <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
         {bigInt(props.data.tokenAllow) > bigInt(200 * 10**18) ? 
         (<s.button
@@ -118,13 +125,13 @@ const Inventory = (props) => {
           Mint cFont (100 eBTC)
         </s.button>
           ) :  (<s.button
-          disabled={loading || bigInt(props.data.tokenAllow) >= bigInt(200 * 10**18)  ? 1 : 0}
+          disabled={loading || props.data.eBTCamount < 0  ? 1 : 0}
           onClick={(e) => {
             e.preventDefault();
             allowToken();
           }}
         >
-          {props.blockchain.eBitcoin == null || props.blockchain.account == null  ? "Please login" : "Allow Token"}
+          Allow Token
         </s.button>)}
         </s.Container>
 
@@ -217,7 +224,7 @@ const Inventory = (props) => {
         </s.button>
         </s.Container>
       )}
-      </s.Screen>
+      </s.Container>
   );
         }
   

@@ -6,6 +6,7 @@ import { connect, clearCache } from "../../redux/blockchain/blockchainActions";
 import {LinkContainer} from 'react-router-bootstrap';
 import * as s from "../../styles/global";
 import "../../App.css";
+import Decimal from '../Decimal';
 
 const Navigation = () => {
 
@@ -51,7 +52,7 @@ const Navigation = () => {
                 <Nav>
                 <Nav.Link>Buy $eBTC</Nav.Link>
                 <Nav.Link>
-                    {(parseFloat(data.eBTCamount).toFixed(2) / parseFloat(10**18)).toFixed(2) + " eBTC"}
+                    {data.eBTCamount >= 0 ? ((parseFloat(data.eBTCamount).toFixed(2) / parseFloat(10**18)).toFixed(2) + " eBTC"):("")}
                 </Nav.Link>
                 </Nav>
                 <s.Container ai="center">

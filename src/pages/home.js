@@ -1,14 +1,26 @@
 import React from 'react';
 import * as s from "../styles/global";
 import Roadmap from '../components/Infomation/Roadmap';
+import Overall from '../components/Infomation/Overall';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchMarket } from '../redux/marketData/marketDataActions';
   
 const Home = (props) => {
+
+    // const dispatch = useDispatch();
+    
+    // useEffect(() => {
+    //     dispatch(fetchMarket());
+    // }, [dispatch]);
 
   return (
 
     <s.Screen>
         <s.Container ai="center">
             <s.Container w="80%" ai="center">
+            <s.SpacerLarge/>
+            <s.SpacerLarge/>
             <s.SpacerLarge/>
             <s.SpacerLarge/>
             <s.TextTitle>

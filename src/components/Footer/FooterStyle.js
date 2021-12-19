@@ -25,7 +25,6 @@ export const Column = styled.div`
   flex-direction: column;
   justify-content: ;
   text-align: left;
-  margin-left: 60px;
 `;
    
 export const Row = styled.div`
@@ -54,7 +53,7 @@ export const FooterLink = styled.a`
   text-decoration: none;
    
   &:hover {
-      color: green;
+      color:  var(--primary);
       transition: 200ms ease-in;
   }
 `;

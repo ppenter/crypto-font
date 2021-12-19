@@ -1,9 +1,9 @@
 const initialState = {
     loading: false,
     MyFont: [],
-    eBTCamount: 0,
-    tokenAllow: 0,
-    eBTCApproveToMarket: 0,
+    eBTCamount: -1,
+    tokenAllow: -1,
+    eBTCApproveToMarket: -1,
     cFontApproveToMarket: false,
     eBTCreward: 0,
     ETHreward: 0,

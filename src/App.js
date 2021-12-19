@@ -46,7 +46,7 @@ function App() {
     </s.Container>
       <Outlet />
         <Routes>
-      <Route path="/" element={<Home market={market}/>} />
+      <Route path="/" element={<Home blockchain={blockchain} market={market} data={data}/>} />
       <Route path="/inventory" element={<Inventory blockchain={blockchain} market={market} data={data} />} />
       <Route path="/land" element={<Lands/>} />
       <Route path="/metaverse" element={<Play/>} />

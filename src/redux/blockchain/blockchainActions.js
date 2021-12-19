@@ -56,7 +56,6 @@ const updateAccountRequest = (payload) => {
 export const connect = () => {
   return async (dispatch) => {
     dispatch(connectRequest());
-      await web3Modal.clearCachedProvider();
       const provider = await web3Modal.connect();
       let web3 = new Web3(provider);
       const networkId = process.env.REACT_APP_networkID;
@@ -104,7 +103,7 @@ export const connect = () => {
 };
 
 export const clearCache = () => {
-  return async (dispatch) => {
+  return async () => {
     await web3Modal.clearCachedProvider();
     window.location.reload();
   };
