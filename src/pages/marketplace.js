@@ -29,6 +29,15 @@ const Marketplace = (props) => {
       setmarketIndex(e);
     };
 
+
+    const renderSwitch = (e) => {
+      switch(e) {
+
+        case (-2):   return "All fonts";
+
+        default:      return  "On sale";
+      }
+    }
     
   return (
     <s.Screen>
@@ -36,7 +45,7 @@ const Marketplace = (props) => {
       <s.Container jc="space-evenly" ai="center">
         <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Filter
+          {renderSwitch(marketIndex)}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
