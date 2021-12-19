@@ -93,11 +93,12 @@ export const connect = () => {
           dispatch(updateAccount(accounts[0]));
         });
         provider.on("chainChanged", () => {
-          window.location.reload();
+          clearCache();
         });
         // Add listeners end
       } else {
-        dispatch(connectFailed("Change network to BSC Testnet."));
+        clearCache();
+        dispatch(connectFailed("Change network to " + process.env.REACT_APP_modalNetwork));
       }
   };
 };

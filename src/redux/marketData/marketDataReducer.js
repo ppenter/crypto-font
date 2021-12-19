@@ -3,6 +3,9 @@ const initialState = {
     onsale: [],
     activeList: [],
     allFont: [],
+    remainingeBTC: -1,
+    remainingEthers: -1,
+    feePool: -1,
     error: false,
     errorMsg: "",
   };
@@ -21,6 +24,9 @@ const initialState = {
           onsale: action.payload.onsale,
           activeList: action.payload.activeList,
           allFont: action.payload.allFont,
+          remainingeBTC: action.payload.remainingeBTC,
+          remainingEthers: action.payload.remainingEthers,
+          feePool: action.payload.feePool,
         };
       case "CHECK_Market_FAILED":
         return {

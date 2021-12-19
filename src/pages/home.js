@@ -23,7 +23,7 @@ const Home = (props) => {
                 Why eBTC ?
             </s.TextTitle>
             <s.TextDescription>
-                &nbsp;&nbsp;&nbsp; I want to make a limited asset similar 
+                &nbsp;&nbsp;&nbsp; We want to make a limited asset similar 
                 to Bitcoin happen on EVM. This is because current Bitcoin 
                 cannot be directly linked to the EVM protocol and requires 
                 a bridge to connect. eBTC will resolve this issue to balance an
@@ -37,6 +37,9 @@ const Home = (props) => {
             <s.SpacerLarge/>
             <s.SpacerLarge/>
             <Roadmap></Roadmap>
+            <s.SpacerLarge/>
+            <s.SpacerLarge/>
+
             </s.Container>
             </s.Container>
     </s.Screen>

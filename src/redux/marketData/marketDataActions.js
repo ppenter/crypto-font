@@ -47,6 +47,7 @@ export const fetchMarket = () => {
         let allFont = await cFontContract.methods.getcFonts().call();
         let remainingeBTC = await cFontContract.methods.remainingeBTC().call();
         let remainingEthers = await cFontContract.methods.remainingEthers().call();
+        let feePool = await cFontContract.methods.feePool().call();
         
       dispatch(
         fetchMarketSuccess({
@@ -54,6 +55,8 @@ export const fetchMarket = () => {
           activeList,
           allFont,
           remainingeBTC,
+          remainingEthers,
+          feePool,
         })
       );
     } catch (err) {
