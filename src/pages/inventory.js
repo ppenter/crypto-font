@@ -106,13 +106,11 @@ const Inventory = (props) => {
     <s.Container ai="center">
       <s.SpacerLarge/>
         <s.SpacerLarge/>
-        <s.Container w="80%" ai="center" jc="center" style={{ flexWrap: "wrap"}}>
       <Overall market={props.market}/>
-      </s.Container>
       <s.SpacerLarge/>
         <s.SpacerLarge/>
     {props.blockchain.account ? (
-    <s.Container w="80%" ai="center" jc="center" style={{ flexWrap: "wrap"}}>
+    <s.Container ai="center" jc="center" style={{ flexWrap: "wrap"}}>
         <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
         {bigInt(props.data.tokenAllow) > bigInt(200 * 10**18) ? 
         (<s.button

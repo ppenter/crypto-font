@@ -42,8 +42,9 @@ function App() {
     <s.Screen>
       <Navigation/>
     <s.Container  ai="center">
+      <s.Container w="80%">
     <s.TextDescription>{blockchain.errorMsg !== "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
-    </s.Container>
+    
       <Outlet />
         <Routes>
       <Route path="/" element={<Home blockchain={blockchain} market={market} data={data}/>} />
@@ -58,6 +59,8 @@ function App() {
     <s.SpacerLarge/>
     <s.SpacerLarge/>
     <Footer/>
+    </s.Container>
+    </s.Container>
   </s.Screen>
   
 );

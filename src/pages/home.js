@@ -18,7 +18,6 @@ const Home = (props) => {
 
     <s.Screen>
         <s.Container ai="center">
-            <s.Container w="80%" ai="center">
             <s.SpacerLarge/>
             <s.SpacerLarge/>
             <s.SpacerLarge/>
@@ -52,7 +51,6 @@ const Home = (props) => {
             <s.SpacerLarge/>
             <s.SpacerLarge/>
 
-            </s.Container>
             </s.Container>
     </s.Screen>
   );

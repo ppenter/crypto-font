@@ -20,7 +20,7 @@ const Cfontinforenderer = ({ font = null,size = 500, style, owner= "" }) => {
         {owner == "Selling" ? (
           <s.TextDescription>{owner}</s.TextDescription>
         ):(
-          <s.TextDescription className="address">{owner}</s.TextDescription>
+          <s.TextDescription className="text-collapse">{owner}</s.TextDescription>
         )}
       </s.Container>
   );
