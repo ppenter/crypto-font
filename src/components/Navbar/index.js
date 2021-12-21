@@ -21,9 +21,9 @@ const Navigation = () => {
   }, [blockchain.cFont, blockchain.account, dispatch]);
 
     return (
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" variant="dark">
             <Container>
-                <Navbar.Brand >cFont</Navbar.Brand>
+            <s.TextTitle style={{fontSize:"24px"}}><Navbar.Brand >cFont</Navbar.Brand></s.TextTitle>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto">
@@ -52,7 +52,7 @@ const Navigation = () => {
                 <Nav>
                 <Nav.Link>Buy $eBTC</Nav.Link>
                 <Nav.Link>
-                    {data.eBTCamount >= 0 ? ((parseFloat(data.eBTCamount).toFixed(2) / parseFloat(10**18)).toFixed(2) + " eBTC"):("")}
+                    {data.eBTCamount >= 0 ? (<Decimal number={data.eBTCamount}  fixed={2} currency={"eBTC"}/>):("")}
                 </Nav.Link>
                 </Nav>
                 <s.Container ai="center">

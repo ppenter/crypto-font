@@ -23,7 +23,7 @@ const Inventory = (props) => {
           dispatch(fetchData(props.blockchain.account));
         }
         dispatch(fetchMarket());
-      }, [dispatch,props.blockchain.cFont,props.blockchain.account ]);
+      }, [dispatch]);
     
       const allowToken = () => {
         setLoading(true);
@@ -98,6 +98,9 @@ const Inventory = (props) => {
             dispatch(fetchMarket());
           });
       };
+
+      const date = new Date(props.data.pastDistributedReward*100);
+    
 
   return (
     <s.Container ai="center">
@@ -183,7 +186,7 @@ const Inventory = (props) => {
             })}
 
             {props.market.activeList.map((item, index) => {
-              if(item.seller.toLowerCase() === props.blockchain.account.toLowerCase()){
+              if(item.seller.toLowerCase() == props.blockchain.account.toLowerCase()){
                 
                 const list = props.market.allFont[item.tokenId];
                 return(

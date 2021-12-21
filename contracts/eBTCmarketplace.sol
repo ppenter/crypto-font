@@ -52,13 +52,13 @@ contract Market {
 
 	uint256 private _listingId = 0;
 	mapping(uint256 => Listing) private _listings;
-	IERC20 eBTC;
+	IERC20 eBitcoin;
 	icFont cFont;
 	address _owner;
 	uint256 public fee = 5;
 
 	constructor(address eBTCAddress, address cFontAddress){
-		eBTC = IERC20(eBTCAddress);
+		eBitcoin = IERC20(eBTCAddress);
 		cFont = icFont(cFontAddress);
 		_owner = msg.sender;
 	}
@@ -110,16 +110,16 @@ contract Market {
 		require(msg.sender != listing.seller, "Seller cannot be buyer");
 		require(listing.status == ListingStatus.Active, "Listing is not active");
 
-		require(eBTC.balanceOf(msg.sender) >= listing.price, "Insufficient payment");
+		require(eBitcoin.balanceOf(msg.sender) >= listing.price, "Insufficient payment");
 
 		listing.status = ListingStatus.Sold;
 
 		IERC721(listing.token).transferFrom(address(this), msg.sender, listing.tokenId);
-		eBTC.transferFrom(msg.sender, address(this), listing.price);
+		eBitcoin.transferFrom(msg.sender, address(this), listing.price);
 		uint256 _fee = listing.price * fee / 100;
-		eBTC.approve(address(cFont), listing.price);
+		eBitcoin.approve(address(cFont), listing.price);
 		cFont.AddeBTCFee(_fee);
-		eBTC.transfer(listing.seller, (listing.price - _fee));
+		eBitcoin.transfer(listing.seller, (listing.price - _fee));
 
 		emit Sale(
 			listingId,

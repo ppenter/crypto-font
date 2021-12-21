@@ -1,18 +1,26 @@
 import React from 'react';
 import * as s from "../styles/global";
 import Roadmap from '../components/Infomation/Roadmap';
-import Overall from '../components/Infomation/Overall';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchMarket } from '../redux/marketData/marketDataActions';
+import { fetchData } from '../redux/data/dataActions';
+import { useSelector } from 'react-redux';
+import ICO from '../components/ICO/ICO';
+import Teams from '../components/Infomation/Teams';
   
 const Home = (props) => {
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+
+    const ico = useSelector((state) => state.ico);
     
-    // useEffect(() => {
-    //     dispatch(fetchMarket());
-    // }, [dispatch]);
+    useEffect(() => {
+        if (props.blockchain.account !== "" && props.blockchain.cFont !== null) {
+          dispatch(fetchData(props.blockchain.account));
+        }
+        dispatch(fetchMarket());
+      }, [dispatch,props.blockchain.account,props.blockchain.cFont ]);
 
   return (
 
@@ -20,13 +28,14 @@ const Home = (props) => {
         <s.Container ai="center">
             <s.SpacerLarge/>
             <s.SpacerLarge/>
+            <ICO ico = {ico} blockchain={props.blockchain} data={props.data}/>
             <s.SpacerLarge/>
             <s.SpacerLarge/>
             <s.TextTitle>
                 What is cFont ?
             </s.TextTitle>
             <s.TextDescription>
-                cFont is ERC721 that provide mining function for mining eBTC
+            &nbsp;&nbsp;&nbsp;cFont is NFT Staking that provide mining function for mining eBTC and also earning reward from others DeFi platform. cFont will provide more platform in DeFi, Marketplace and metaverse.
             </s.TextDescription>
             <s.SpacerLarge/>
             <s.SpacerLarge/>
@@ -50,7 +59,11 @@ const Home = (props) => {
             <Roadmap></Roadmap>
             <s.SpacerLarge/>
             <s.SpacerLarge/>
-
+            <s.TextTitle>
+                Teams
+            </s.TextTitle>
+            <s.SpacerLarge/>
+                <Teams></Teams>
             </s.Container>
     </s.Screen>
   );

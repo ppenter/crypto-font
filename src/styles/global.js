@@ -134,3 +134,10 @@ export const button = styled.button`
   }
 `;
 
+
+export const profilePic = styled.div`
+  background-image: url(${({ src }) => ( src ? src : "" )};);
+  width: 150px;
+  height: 150px;
+`;
+

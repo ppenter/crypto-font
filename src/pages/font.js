@@ -29,7 +29,8 @@ const FontInfo = (props) => {
       const marketAddress = eBTCMarket.networks[process.env.REACT_APP_networkID].address;
       let fontowner = font.cFontOwner;
       let o = fontowner.toLowerCase();
-
+      let account = props.blockchain.account ? (props.blockchain.account.toLowerCase()) : ("0x");
+      
       const list = {
         id: "",
         seller: "",
@@ -39,7 +40,7 @@ const FontInfo = (props) => {
       }
 
       market.activeList.map(function(item, i){
-        if(item.tokenId == id){
+        if(item.tokenId === id){
           list.id = item.listingId;
           list.seller = item.seller;
           list.price = item.price;
@@ -48,7 +49,6 @@ const FontInfo = (props) => {
         }
       })
 
-      // console.log(market.activeList);
     
   return (
       <s.Screen>
@@ -58,15 +58,17 @@ const FontInfo = (props) => {
                 <s.Container ai="center" jc="center">
                 <Cfontrenderer font={font.cFontInfo}></Cfontrenderer>
                 </s.Container>
-                <Cfontinforenderer font={font.cFontInfo} owner={o == marketAddress.toLowerCase() ? ("Selling") : (font.cFontOwner)}></Cfontinforenderer>
+                <Cfontinforenderer font={font.cFontInfo} owner={o === marketAddress.toLowerCase() ? ("Selling") : (font.cFontOwner)}></Cfontinforenderer>
             <s.Container>
+            <s.SpacerLarge/>
             
-            {props.blockchain.account == o ? (
+            {account === o ? (
                   <s.Container fd="row" jc="space-evenly" ai="center"style={{ flexWrap: "wrap"}}>
                     <s.button
+                    
                       onClick = {() => setOpenPopup(true)}
                     >Sell</s.button>
-                    <s.button>Transfer</s.button>
+                    <s.button disabled={1}>Not implemented</s.button>
                   </s.Container>
                 ) : (
                   null

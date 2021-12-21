@@ -4,7 +4,7 @@ import * as s from "../../styles/global";
 const Roadmap = (props) => {
     return(
         <s.Container jc = 'center' ai="center" fd='column' style={{ flexWrap: "wrap" }}>
-            <s.TextTitle >Q1 - 2022</s.TextTitle>
+            <s.TextTitle >Phase I</s.TextTitle>
             <s.Container jc="center" ai="center">
                 <div>
                 <s.TextDescription>• ICO</s.TextDescription>
@@ -13,7 +13,7 @@ const Roadmap = (props) => {
                 </div>
             </s.Container>
             <s.TextDescription>↓</s.TextDescription>
-            <s.TextTitle >Q2 - 2022</s.TextTitle>
+            <s.TextTitle >Phase II</s.TextTitle>
             <s.Container jc="center" ai="center">
                 <div>
                 <s.TextDescription>• Land Sale</s.TextDescription>
@@ -22,14 +22,14 @@ const Roadmap = (props) => {
                 </div>
             </s.Container>
             <s.TextDescription>↓</s.TextDescription>
-            <s.TextTitle >Q3 - 2022</s.TextTitle>
+            <s.TextTitle >Phase III</s.TextTitle>
             <s.Container jc="center" ai="center">
                 <div>
                 <s.TextDescription>• Metaverse Development</s.TextDescription>
                 </div>
             </s.Container>
             <s.TextDescription>↓</s.TextDescription>
-            <s.TextTitle >Q4 - 2022</s.TextTitle>
+            <s.TextTitle >Phase IIII</s.TextTitle>
             <s.Container jc="center" ai="center">
                 <div>
                 <s.TextDescription>• Launch Final Version</s.TextDescription>

@@ -8,6 +8,7 @@ export const Nav = styled.nav`
     padding: 10px;
     align-items: center;
     z-index: 12;
+    background: transparent;
 `;
 
 export const NavLogoCollapse = styled(Link)`

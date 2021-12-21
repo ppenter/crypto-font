@@ -3,8 +3,9 @@ import Web3 from "web3";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import eBTCMarket from "../../contracts/Market.json";
-import eBitcoin from "../../contracts/eBitcoin.json";
+import eBTC from "../../contracts/eBTC.json";
 import cFont from "../../contracts/cryptoFont.json";
+import ICO from "../../contracts/ICO.json";
 // log
 import { fetchData } from "../data/dataActions";
 import { fetchMarket } from "../marketData/marketDataActions";
@@ -62,8 +63,9 @@ export const connect = () => {
       const accounts = await web3.eth.getAccounts();
       const chainId = await web3.eth.getChainId();
       const cFontNetworkData = await cFont.networks[networkId];
-      const eBitcoinNetworkData = await eBitcoin.networks[networkId];
+      const eBitcoinNetworkData = await eBTC.networks[networkId];
       const eBTCMarketNetworkData = await eBTCMarket.networks[networkId];
+      const ICONetworkData = await ICO.networks[networkId];
     
       if (cFontNetworkData && eBitcoinNetworkData && eBTCMarketNetworkData && networkId == chainId) {
         const cFontContract = new web3.eth.Contract(
@@ -71,12 +73,16 @@ export const connect = () => {
           cFontNetworkData.address
         );
         const eBitcoinContract = new web3.eth.Contract(
-          eBitcoin.abi,
+          eBTC.abi,
           eBitcoinNetworkData.address
         );
         const eBTCMarketContract = new web3.eth.Contract(
           eBTCMarket.abi,
           eBTCMarketNetworkData.address
+        );
+        const ICOMarketContract = new web3.eth.Contract(
+          ICO.abi,
+          ICONetworkData.address
         );
         dispatch(
           connectSuccess({
@@ -84,6 +90,7 @@ export const connect = () => {
             cFont: cFontContract,
             eBitcoin: eBitcoinContract,
             eBTCMarket: eBTCMarketContract,
+            ICO: ICOMarketContract,
             web3: web3,
           })
         );

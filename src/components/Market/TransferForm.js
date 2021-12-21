@@ -7,7 +7,7 @@ import { fetchMarket } from "../../redux/marketData/marketDataActions";
 import { useDispatch, useSelector} from "react-redux";
 import { fetchcFont } from "../../redux/cFontInfo/cFontInfoActions";
 
-const ListingForm = (props) => {
+const TransferForm = (props) => {
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
@@ -94,4 +94,4 @@ const ListingForm = (props) => {
       }
     
 };
-export default ListingForm;
+export default TransferForm;

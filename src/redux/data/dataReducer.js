@@ -8,6 +8,7 @@ const initialState = {
     eBTCreward: 0,
     ETHreward: 0,
     pastDistributedReward: 0,
+    icoWhitelist: false,
     error: false,
     errorMsg: "",
   };
@@ -31,6 +32,7 @@ const initialState = {
           pastDistributedReward: action.payload.pastDistributedReward,
           eBTCreward: action.payload.eBTCreward,
           ETHreward: action.payload.ETHreward,
+          icoWhitelist: action.payload.icoWhitelist,
         };
       case "CHECK_DATA_FAILED":
         return {

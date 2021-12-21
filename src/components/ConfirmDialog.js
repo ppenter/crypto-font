@@ -1,8 +1,6 @@
 import React from "react";
-import {Dialog, Typography, DialogActions, DialogContent, DialogTitle} from '@material-ui/core';
+import {Dialog, Typography, DialogContent, DialogTitle} from '@material-ui/core';
 import { makeStyles } from "@material-ui/core"
-import * as s from "../styles/global.js";
-import { withTheme } from "styled-components";
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 import ActionButton from "./ActionButton.js";
 

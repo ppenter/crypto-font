@@ -27,7 +27,6 @@ export const fetchMarket = () => {
   return async (dispatch) => {
     dispatch(fetchMarketRequest());
 
-    console.log(process.env.REACT_APP_networkID);
     let web3 = new Web3(process.env.REACT_APP_RPC);
     try {
 
@@ -47,8 +46,8 @@ export const fetchMarket = () => {
         let allFont = await cFontContract.methods.getcFonts().call();
         let remainingeBTC = await cFontContract.methods.remainingeBTC().call();
         let remainingEthers = await cFontContract.methods.remainingEthers().call();
-        let feePool = await cFontContract.methods.feePool().call();
-        
+        let feePool = await cFontContract.methods._feePool().call();
+
       dispatch(
         fetchMarketSuccess({
           onsale,

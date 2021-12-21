@@ -57,6 +57,11 @@ export const fetchData = (account) => {
         .blockchain.cFont.methods.isApprovedForAll(account, Marketaddress)
         .call();
 
+      let icoWhitelist = await store
+      .getState()
+      .blockchain.ICO.methods.investors(account)
+      .call();
+
       // let eBTCreward = 0;
       // let ETHreward = 0;
       const eBTCreward = await store
@@ -69,7 +74,7 @@ export const fetchData = (account) => {
         .call();  
       let pastDistributedReward = await store
         .getState()
-        .blockchain.cFont.methods.pastDistributedReward()
+        .blockchain.cFont.methods._pastDistributedReward()
         .call();  
       dispatch(
         fetchDataSuccess({
@@ -81,6 +86,7 @@ export const fetchData = (account) => {
           eBTCreward,
           ETHreward,
           pastDistributedReward,
+          icoWhitelist,
         })
       );
     } catch (err) {

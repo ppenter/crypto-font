@@ -4,16 +4,15 @@ import { useState } from "react";
 import Web3 from "web3";
 import { fetchData } from "../../redux/data/dataActions";
 import { fetchMarket } from "../../redux/marketData/marketDataActions";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch} from "react-redux";
 import { fetchcFont } from "../../redux/cFontInfo/cFontInfoActions";
 
-const ListingForm = (props) => {
+const BuyIco = (props) => {
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const market = useSelector((state) => state.market);
 
-    const sell = (id) => {
+    const buyico = (id) => {
         setLoading(true);
         props.blockchain.eBTCMarket.methods
           .listToken(props.blockchain.cFont._address, props.id, listingPrice)
@@ -33,30 +32,8 @@ const ListingForm = (props) => {
           });
       };
 
-      const approve = () => {
-        setLoading(true);
-        props.blockchain.cFont.methods
-          .setApprovalForAll(props.blockchain.eBTCMarket._address, "true")
-          .send({
-            from: props.blockchain.account
-          })
-          .once("error", (err) => {
-            setLoading(false);
-            console.log(err);
-          })
-          .then((receipt) => {
-            setLoading(false);
-            console.log(receipt);
-            dispatch(fetchData(props.blockchain.account));
-          });
-      };
-
       const [listingPrice, setListingPrice] = useState('0')
-      if(market.onsale.indexOf(props.id) > -1){
-        return(
-          "This cFont is already listed!"
-        )
-      }else{
+
         return (
           <s.Container>
           price
@@ -72,26 +49,14 @@ const ListingForm = (props) => {
           ></s.Input>
           <s.SpacerLarge></s.SpacerLarge>
           <s.Container flex="1" fd="row" jc="space-evenly" ai="center">
-            {props.data.cFontApproveToMarket ? (
-              <s.button 
-              disabled={loading}
+              <s.button
+              disabled = {loading}
               onClick={(e) => { 
               e.preventDefault();
-              sell(props.id);
+              buyico();
           }}>SELL</s.button>
-            ): (
-              <s.button 
-              disabled={loading}
-              onClick={(e) => { 
-                e.preventDefault();
-                approve();
-            }}>APPROVE</s.button>
-            )}
-          
           </s.Container>
           </s.Container>
           );
-      }
-    
 };
-export default ListingForm;
+export default BuyIco;

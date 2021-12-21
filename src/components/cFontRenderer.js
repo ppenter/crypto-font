@@ -1,5 +1,4 @@
 import React from "react";
-import * as s from "../styles/global.js";
 
 const Cfontrenderer = ({ font = null, size = 200, style }) => {
   if (!font || font.length <= 0) {
@@ -23,7 +22,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
   let second = dnaStr.substring(3, 6) % 256;
   let third = dnaStr.substring(6, 9) % 256;
   // let fouth = dnaStr.substring(9, 12) % 256;
-  let str = ("0000" + font.Power).substring(font.Power.toString().length);
+  let str = ("0000" + font.power).substring(font.power.toString().length);
   let c =  first.toString() +","+ second.toString() +","+ third.toString() +","+ "1";
 
   let unicode = (eval('"\\u' + str + '"'));
@@ -37,7 +36,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
         textAlign: "center",
         justifyContent: "center",
         alignItems: "center",
-        fontSize: (20 + (font.Size % 80)) + 'px',
+        fontSize: (20 + (font.size % 80)) + 'px',
         color: "white",
         textShadow: `0px 0px 20px rgb(${c})`,
         ...style,

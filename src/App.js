@@ -18,16 +18,15 @@ import FontInfo from "./pages/font.js"
 import Play from "./pages/play";
 import Navigation from './components/Navbar';
 import Footer from "./components/Footer/Footer";
-
 function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const market = useSelector((state) => state.market);
   const font = useSelector((state) => state.font);
-  console.log(market);
-  console.log(data);
-  console.log(blockchain);
+  // console.log(market);
+  // console.log(data);
+  // console.log(blockchain);
 
   useEffect(() => {
     if (blockchain.account !== "" && blockchain.cFont !== null) {

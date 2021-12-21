@@ -1,4 +1,3 @@
-import React from "react";
 
 const Decimal = ({decimal = 18, number = 0 , currency = "", fixed = 2}) => {
 

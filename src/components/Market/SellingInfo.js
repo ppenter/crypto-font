@@ -1,11 +1,9 @@
 import React from "react";
 import * as s from "../../styles/global";
-import { useEffect, useState } from "react";
-import Web3 from "web3";
-import { BigNumber } from "bignumber.js";
+import { useState } from "react";
 import { fetchData } from "../../redux/data/dataActions";
 import { fetchMarket } from "../../redux/marketData/marketDataActions";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch} from "react-redux";
 import { fetchcFont } from "../../redux/cFontInfo/cFontInfoActions"
 import bigInt from "big-integer";
 
@@ -13,9 +11,6 @@ const SellingInfo = (props) => {
 
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-
-
-    const [listingPrice, setListingPrice] = useState('0')
 
     const approveEBTCToMarket = () => {
         setLoading(true);
@@ -77,12 +72,6 @@ const SellingInfo = (props) => {
 
       const isApprove = bigInt(props.data.eBTCApproveToMarket) > bigInt(props.list.price);
 
-      console.log(props.list)
-
-      console.log(props.data.eBTCApproveToMarket)
-
-      console.log(props.list.price)
-
       const seller = props.list.seller.toLowerCase()
 
     return (
@@ -100,23 +89,27 @@ const SellingInfo = (props) => {
                         <s.SpacerLarge/>
                         {props.blockchain.account != null  ? (
                           <s.Container fd="row" jc="space-evenly" ai="center">
-                            {!isApprove ? (
-                                <s.button onClick={(e) => { 
+                            {!isApprove && props.blockchain.account !== null && props.blockchain.account.toLowerCase() !== seller ? (
+                                <s.button 
+                                disabled={loading}
+                                onClick={(e) => { 
                                     e.preventDefault();
                                     approveEBTCToMarket();
                                 }}>APPROVE</s.button>
                             ) : (
                                 null
                             )}
-                            {isApprove && props.blockchain.account != null && props.blockchain.account != seller ? (
-                                <s.button onClick={(e) => { 
+                            {isApprove && props.blockchain.account !== null && props.blockchain.account.toLowerCase() !== seller ? (
+                                <s.button 
+                                disabled={loading}
+                                onClick={(e) => { 
                                     e.preventDefault();
                                     buy(props.list.id);
                                 }}>BUY</s.button>
                             ):(
                                 null
                             )}
-                            {props.blockchain.account != null && props.blockchain.account == seller ? (
+                            {props.blockchain.account !== null && props.blockchain.account.toLowerCase() === seller ? (
                                 <s.button onClick={(e) => { 
                                     e.preventDefault();
                                     cancel(props.list.id);

@@ -4,7 +4,6 @@ import { useDispatch} from "react-redux";
 import { useEffect, useState } from "react";
 import * as s from "../styles/global";
 import Cfontrenderer from '../components/cFontRenderer';
-import bigInt from 'big-integer';
 import Price from '../components/Market/Price';
 import { Dropdown } from 'react-bootstrap';
 import {
@@ -14,53 +13,125 @@ import {
 const Marketplace = (props) => {
 
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
+    const [sortType, setSortType] = useState('price');
     
 
     useEffect(() => {
           dispatch(fetchMarket());
+          setSortType("price");
       }, [dispatch]);
 
     
-    const [marketIndex, setmarketIndex] = useState(-1);
+    const [rarityIndex, setRarityIndex] = useState(0);
+    let [data, setData] = useState([]);
 
-    const setMarket = (e) => {
-      dispatch(fetchMarket());
-      setmarketIndex(e);
+    
+ 
+    useEffect(() => {
+      let active = props.market.activeList;
+      const sortArray = type => {
+        const types = {
+          tokenId: 'tokenId',
+          price: 'price',
+          tokenIdh: 'tokenId',
+          priceh: 'price',
+        };
+        const sortProperty = types[type];
+        let sorted = [...active].sort((a, b) => a[sortProperty] - b[sortProperty]);;
+        if(type === "tokenIdh" || type === "priceh"){
+          sorted = [...active].sort((a, b) => b[sortProperty] - a[sortProperty]);
+        }else{
+          sorted = [...active].sort((a, b) => a[sortProperty] - b[sortProperty]);
+        }
+        
+        setData(sorted);
+      };
+      sortArray(sortType);
+      
+    }, [sortType,props.market.activeList]); 
+  
+
+    const setRarity = (e) => {
+      setRarityIndex(e);
     };
 
-
-    const renderSwitch = (e) => {
+    const filterFont = (e) => {
       switch(e) {
 
-        case (-2):   return "All fonts";
+        case (0): return "All rarity";
 
-        default:      return  "On sale";
+        case (e):   return e;
+
+        default:      return  "All rarity";
       }
     }
-    
+
+    const renderSort = (e) => {
+      switch(e) {
+
+        case "price": return "Lowest Price";
+
+        case "priceh":   return "Higest Price";
+
+        case "tokenId":   return "Lowest ID";
+
+        case "tokenIdh":   return "Higest ID";
+
+        default:      return  "Lowest Price";
+      }
+    }
+
+    let list = props.market.allFont;
+
+    if(rarityIndex > 0){
+      list = props.market.allFont.filter(f => f.rarity === rarityIndex);
+    }else{
+      list = props.market.allFont;
+    }
+
   return (
     <s.Screen>
       <s.SpacerMedium />
-      <s.Container jc="space-evenly" ai="center">
+      <s.Container jc="space-evenly" fd="row" ai="center">
         <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
-          {renderSwitch(marketIndex)}
+          {filterFont(rarityIndex)}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            <Dropdown.Item onClick={(e) => {setMarket(-1)}}>On sale</Dropdown.Item>
-            <Dropdown.Item onClick={(e) => {setMarket(-2)}}>All Fonts</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {setRarity(0)}}>All rarity</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {setRarity(1)}}>1</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {setRarity(2)}}>2</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {setRarity(3)}}>3</Dropdown.Item>
+            <Dropdown.Item onClick={(e) => {setRarity(4)}}>4</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+          {renderSort(sortType)}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+          <Dropdown.Item value="price" onClick={(e) => setSortType("price")}>Lowest Price</Dropdown.Item>
+            <Dropdown.Item value="priceh" onClick={(e) => setSortType("priceh")}>Highest Price</Dropdown.Item>
+            <Dropdown.Item value="tokenId" onClick={(e) => setSortType("tokenId")}>Lowest ID</Dropdown.Item>
+            <Dropdown.Item value="tokenIdh" onClick={(e) => setSortType("tokenIdh")}>Highest ID</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <s.SpacerLarge/>
       </s.Container>
           <s.Container jc={"center"} fd={"row"} style={{ flexWrap: "wrap"}}>
-            {props.market.allFont.map((item, index) => {
-              if(props.market.onsale.indexOf(item.id)>marketIndex){
-                return (
-                    <NavLink key={item.id} to={"/font/"+item.id}>
-                  <s.Container className="Fontcard" key={index} style={{ padding: "15px" }}>
+            
+
+            {data.map((i,j) => {
+              return (
+                <div key={j}>
+                {
+                  list.map((item,key) => {
+                    if(i.tokenId === item.id){
+                      return(
+                        <NavLink key={item.id} to={"/font/"+item.id}>
+                  <s.Container className="Fontcard" key={key} style={{ padding: "15px" }}>
                       <Cfontrenderer font={item}/>
                     <s.SpacerXSmall />
                     <s.Container>
@@ -74,8 +145,12 @@ const Marketplace = (props) => {
                     </s.Container>
                   </s.Container>
                   </NavLink>
-                );
-              }
+                      )
+                    }
+                  })
+                }
+                </div>
+              )
             })}
           </s.Container>
     </s.Screen>
