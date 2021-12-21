@@ -18,6 +18,7 @@ import FontInfo from "./pages/font.js"
 import Play from "./pages/play";
 import Navigation from './components/Navbar';
 import Footer from "./components/Footer/Footer";
+import lexi from "./assets/lexi40.png"
 function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
@@ -38,14 +39,15 @@ function App() {
 
 
   return (
-    <s.Screen>
+    <s.Screen className="lexiBackground">
       <Navigation/>
     <s.Container  ai="center">
-      <s.Container w="80%">
+      <s.Container w="80%" style={{minHeight: 1000}}>
     <s.TextDescription>{blockchain.errorMsg !== "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
     
       <Outlet />
         <Routes>
+
       <Route path="/" element={<Home blockchain={blockchain} market={market} data={data}/>} />
       <Route path="/inventory" element={<Inventory blockchain={blockchain} market={market} data={data} />} />
       <Route path="/land" element={<Lands/>} />
@@ -57,8 +59,8 @@ function App() {
     <s.SpacerLarge/>
     <s.SpacerLarge/>
     <s.SpacerLarge/>
-    <Footer/>
     </s.Container>
+    <Footer/>
     </s.Container>
   </s.Screen>
   

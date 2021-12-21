@@ -6,6 +6,7 @@ import * as s from "../styles/global";
 import Cfontrenderer from '../components/cFontRenderer';
 import Price from '../components/Market/Price';
 import { Dropdown } from 'react-bootstrap';
+import Overall from '../components/Infomation/Overall';
 import {
     NavLink,
 } from "../components/Navbar/NavbarElements.js";
@@ -91,6 +92,9 @@ const Marketplace = (props) => {
 
   return (
     <s.Screen>
+      <s.SpacerLarge></s.SpacerLarge>
+      <s.SpacerLarge></s.SpacerLarge>
+      <Overall market={props.market}/>
       <s.SpacerMedium />
       <s.Container jc="space-evenly" fd="row" ai="center">
         <Dropdown>

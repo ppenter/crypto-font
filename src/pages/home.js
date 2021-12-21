@@ -8,6 +8,7 @@ import { fetchData } from '../redux/data/dataActions';
 import { useSelector } from 'react-redux';
 import ICO from '../components/ICO/ICO';
 import Teams from '../components/Infomation/Teams';
+import lexi from "../assets/lexi40.png";
   
 const Home = (props) => {
 
@@ -24,11 +25,11 @@ const Home = (props) => {
 
   return (
 
-    <s.Screen>
-        <s.Container ai="center">
+        <s.Container ai="center" >
             <s.SpacerLarge/>
             <s.SpacerLarge/>
             <ICO ico = {ico} blockchain={props.blockchain} data={props.data}/>
+            <s.Container ai="center" >
             <s.SpacerLarge/>
             <s.SpacerLarge/>
             <s.TextTitle>
@@ -64,8 +65,9 @@ const Home = (props) => {
             </s.TextTitle>
             <s.SpacerLarge/>
                 <Teams></Teams>
+                <s.SpacerLarge/>
+                </s.Container>
             </s.Container>
-    </s.Screen>
   );
 };
   

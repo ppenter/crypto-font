@@ -3,13 +3,13 @@ import * as s from "../styles/global";
   
 const Lands = (props) => {
   return (
-    <s.Screen>
+    <s.Container>
       <s.SpacerLarge/>
       <s.SpacerLarge/>
       <s.Container jc={"center"} fd={"row"} style={{ flexWrap: "wrap"}}>
         <s.TextTitle>Coming soon...</s.TextTitle>
       </s.Container>
-    </s.Screen>
+    </s.Container>
   );
 };
   

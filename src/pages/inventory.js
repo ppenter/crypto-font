@@ -100,7 +100,7 @@ const Inventory = (props) => {
       };
 
   return (
-    <s.Container ai="center">
+    <s.Container ai="center" mw={1000}>
       <s.SpacerLarge/>
         <s.SpacerLarge/>
       <Overall market={props.market}/>

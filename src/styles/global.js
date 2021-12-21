@@ -3,9 +3,9 @@ import styled from "styled-components";
 // Used for wrapping a page component
 export const Screen = styled.div`
   background-color: var(--dark-grey);
-  background-image: ${({ image }) => (image ? `url(${image})` : "none")};
-  background-size: cover;
-  background-position: center;
+  background-size: 200vh;
+  background-position: top 30vh left 50%;
+  background-repeat: no-repeat;
   width: 100%;
   min-height: 100%;
   display: flex;
