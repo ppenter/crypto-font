@@ -40,13 +40,9 @@ const Navigation = () => {
                 <Nav.Link>Land</Nav.Link>
                 </LinkContainer>
                 <NavDropdown title="Resources" id="collasible-nav-dropdown">
-                    <NavDropdown.Item>Whitepaper</NavDropdown.Item>
-                    <NavDropdown.Item>About us</NavDropdown.Item>
+                <Nav.Link href="https://jarupak-sri.gitbook.io/cfont-documents/" target="_blank">Whitepaper</Nav.Link>
                     {/* <NavDropdown.Item href="#action/3.3"></NavDropdown.Item> */}
                     <NavDropdown.Divider />
-                    <LinkContainer to="/metaverse">
-                    <NavDropdown.Item>Metaverse</NavDropdown.Item>
-                    </LinkContainer>
                 </NavDropdown>
                 </Nav>
                 <Nav>
