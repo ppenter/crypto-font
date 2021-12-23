@@ -93,10 +93,8 @@ const Marketplace = (props) => {
   return (
     <s.Screen>
       <s.SpacerLarge></s.SpacerLarge>
-      <s.SpacerLarge></s.SpacerLarge>
-      <Overall market={props.market}/>
       <s.SpacerMedium />
-      <s.Container jc="space-evenly" fd="row" ai="center">
+      <s.Container className="Fontcard" jc="space-evenly" fd="row" ai="center" style={{padding: 50}}>
         <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
           {filterFont(rarityIndex)}

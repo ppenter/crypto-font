@@ -21,7 +21,7 @@ const ICO = (props) => {
             <s.TextDescription style={{flexWrap: "wrap"}}>PRICE:  1 BNB {"->"} <Decimal number={parseFloat(ico.icoPrice)} decimal={0} currency={"eBTC"}/></s.TextDescription>
             {blockchain.account ? (<s.button
             onClick = {() => setOpenPopup(true)}
-            disabled = {data.icoWhitelist ? (0):(1)}
+            disabled = {ico.end > 0 ? (0):(1)}
             >BUY</s.button>) : (<s.button
             disabled ={1}>Please Login</s.button>)}
         </s.Container>
