@@ -5,6 +5,7 @@ import * as s from "./styles/global";
 import { fetchData } from "./redux/data/dataActions";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMarket } from "./redux/marketData/marketDataActions";
+import { fetchICO } from "./redux/ico/icoActions";
 import {
   Routes,
   Route,
@@ -25,15 +26,19 @@ function App() {
   const data = useSelector((state) => state.data);
   const market = useSelector((state) => state.market);
   const font = useSelector((state) => state.font);
+  const ico = useSelector((state) => state.ico);
   // console.log(market);
   // console.log(data);
-  // console.log(blockchain);
+  console.log(blockchain);
 
   useEffect(() => {
     if (blockchain.account !== "" && blockchain.cFont !== null) {
       dispatch(fetchData(blockchain.account));
       dispatch(fetchMarket());
+      dispatch(fetchICO());
     }
+    dispatch(fetchMarket());
+    dispatch(fetchICO());
   }, [blockchain.cFont,dispatch, blockchain.account]);
 
 
@@ -48,7 +53,7 @@ function App() {
       <Outlet />
         <Routes>
 
-      <Route path="/" element={<Home blockchain={blockchain} market={market} data={data}/>} />
+      <Route path="/" element={<Home blockchain={blockchain} ico={ico} market={market} data={data}/>} />
       <Route path="/inventory" element={<Inventory blockchain={blockchain} market={market} data={data} />} />
       <Route path="/land" element={<Lands/>} />
       <Route path="/metaverse" element={<Play/>} />

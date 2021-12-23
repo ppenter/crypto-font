@@ -6,18 +6,22 @@ import { fetchData } from "../../redux/data/dataActions";
 import { fetchMarket } from "../../redux/marketData/marketDataActions";
 import { useDispatch} from "react-redux";
 import { fetchcFont } from "../../redux/cFontInfo/cFontInfoActions";
-
+import { fetchICO } from "../../redux/ico/icoActions";
 const BuyIco = (props) => {
 
     const [loading, setLoading] = useState(false);
+    const [listingPrice, setListingPrice] = useState('0')
     const dispatch = useDispatch();
+
+    console.log(listingPrice)
 
     const buyico = (id) => {
         setLoading(true);
-        props.blockchain.eBTCMarket.methods
-          .listToken(props.blockchain.cFont._address, props.id, listingPrice)
+        props.blockchain.ICO.methods
+          .buy()
           .send({
-            from: props.blockchain.account
+            from: props.blockchain.account,
+            value: listingPrice,
           })
           .once("error", (err) => {
             setLoading(false);
@@ -27,18 +31,14 @@ const BuyIco = (props) => {
             setLoading(false);
             console.log(receipt);
             dispatch(fetchData(props.blockchain.account));
-            dispatch(fetchMarket());
-            dispatch(fetchcFont(props.id));
+            dispatch(fetchICO());
           });
       };
-
-      const [listingPrice, setListingPrice] = useState('0')
 
         return (
           <s.Container>
           price
           <s.Input type="number" min="0"
-          disabled={!props.data.cFontApproveToMarket ? (1):(0)}
           onChange={ 
               (e) => setListingPrice(e.target.value !== "" ? (
                   Web3.utils.toWei((e.target.value).toString())
@@ -54,7 +54,7 @@ const BuyIco = (props) => {
               onClick={(e) => { 
               e.preventDefault();
               buyico();
-          }}>SELL</s.button>
+          }}>BUY</s.button>
           </s.Container>
           </s.Container>
           );

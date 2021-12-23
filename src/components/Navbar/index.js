@@ -14,11 +14,6 @@ const Navigation = () => {
     const blockchain = useSelector((state) => state.blockchain);
     const data = useSelector((state) => state.data);
 
-  useEffect(() => {
-    if (blockchain.account !== "" && blockchain.cFont !== null) {
-      dispatch(fetchData(blockchain.account));
-    }
-  }, [blockchain.cFont, blockchain.account, dispatch]);
 
     return (
         <Navbar collapseOnSelect expand="lg" variant="dark">

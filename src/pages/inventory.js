@@ -18,13 +18,6 @@ const Inventory = (props) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        if (props.blockchain.account !== "" && props.blockchain.cFont !== null) {
-          dispatch(fetchData(props.blockchain.account));
-        }
-        dispatch(fetchMarket());
-      }, [dispatch,props.blockchain.cFont,props.blockchain.account ]);
-    
       const allowToken = () => {
         setLoading(true);
         props.blockchain.eBitcoin.methods

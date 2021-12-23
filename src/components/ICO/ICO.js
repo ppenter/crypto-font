@@ -8,17 +8,17 @@ import ConfirmDialong from "../ConfirmDialog";
 const ICO = (props) => {
 
     const [openPopup, setOpenPopup] = useState(false);
-
     const {blockchain, data, ico} = props;
+
     return(
         <s.Container className="Fontcard" style={{padding: 30}}>
             <s.TextTitle>ICO - {ico.end > 0 ? ("started"): ("not started")}</s.TextTitle>
         <s.Container ai="center" jc="space-evenly" fd="row" style={{flexWrap: "wrap"}}>
             <s.TextDescription style={{flexWrap: "wrap"}}>Remaining eBTC </s.TextDescription>
-            <s.TextDescription style={{flexWrap: "wrap"}}>{ico.icoReamin < 0 ? ("0"):(<Decimal number={ico.icoRemain} currency={"eBTC"}/>)} / 1,000,000 eBTC</s.TextDescription>
+            <s.TextDescription style={{flexWrap: "wrap"}}>{parseFloat(ico.icoRemain) < 0 ? ("0"):(<Decimal number={parseFloat(ico.icoRemain)} currency={"eBTC"}/>)} / 1000000.00 eBTC</s.TextDescription>
         </s.Container>
         <s.Container ai="center" jc="space-evenly" fd="row" style={{flexWrap: "wrap"}}>
-            <s.TextDescription style={{flexWrap: "wrap"}}>PRICE:  1 BNB {"->"} <Decimal number={ico.icoPrice} currency={"eBTC"}/></s.TextDescription>
+            <s.TextDescription style={{flexWrap: "wrap"}}>PRICE:  1 BNB {"->"} <Decimal number={parseFloat(ico.icoPrice)} decimal={0} currency={"eBTC"}/></s.TextDescription>
             {blockchain.account ? (<s.button
             onClick = {() => setOpenPopup(true)}
             disabled = {data.icoWhitelist ? (0):(1)}

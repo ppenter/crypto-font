@@ -1,23 +1,24 @@
 // log
 import store from "../store";
 import ICO from "../../contracts/ICO.json";
+import Web3 from "web3";
 
 const fetchICORequest = () => {
   return {
-    type: "CHECK_DATA_REQUEST",
+    type: "CHECK_ICO_REQUEST",
   };
 };
 
 const fetchICOSuccess = (payload) => {
   return {
-    type: "CHECK_DATA_SUCCESS",
+    type: "CHECK_ICO_SUCCESS",
     payload: payload,
   };
 };
 
 const fetchICOFailed = (payload) => {
   return {
-    type: "CHECK_DATA_FAILED",
+    type: "CHECK_ICO_FAILED",
     payload: payload,
   };
 };
@@ -32,17 +33,15 @@ export const fetchICO = () => {
           ICO.abi,
           deployedNetwork.address,
         );
-        const ICOAddress = ICO.networks[process.env.REACT_APP_networkID].address;
-        let onsale = await MarketContract.methods.getOnsaleOfToken(cFontAddres).call();
-        let icoReamin = await ICOContract.methods.availableTokens().call();
+        let icoRemain = await ICOContract.methods.availableTokens().call();
         let icoPrice = await ICOContract.methods.price().call();
         let minPurchase = await ICOContract.methods.minPurchase().call();
         let maxPurchase = await ICOContract.methods.maxPurchase().call();
         let end = await ICOContract.methods.end().call();
 
       dispatch(
-        fetchMarketSuccess({
-          icoReamin,
+        fetchICOSuccess({
+          icoRemain,
           icoPrice,
           minPurchase,
           maxPurchase,
@@ -51,7 +50,7 @@ export const fetchICO = () => {
       );
     } catch (err) {
       console.log(err);
-      dispatch(fetchMarketFailed("Could not load data from contract."));
+      dispatch(fetchICOFailed("Could not load data from contract."));
     }
   };
 };

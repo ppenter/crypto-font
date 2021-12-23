@@ -8,6 +8,6 @@ module.exports = function (deployer) {
     await deployer.deploy(eBitcoin);
     await deployer.deploy(cFont, eBitcoin.address);
     await deployer.deploy(Market, eBitcoin.address, cFont.address);
-    await deployer.deploy(ICO, eBitcoin.address);
+    await deployer.deploy(ICO);
 });
 };

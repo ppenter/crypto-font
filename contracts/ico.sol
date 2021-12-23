@@ -29,27 +29,34 @@ contract ICO {
     uint public minPurchase;
     uint public maxPurchase;
     bool public released;
+    bool public whitelistStatus = false;
     
-    constructor(address tokenAddress) {
-        token = tokenAddress;
+    constructor() {
         admin = msg.sender;
     }
     
     function start(
         uint duration,
+        address _token,
         uint _price,
         uint _availableTokens,
         uint _minPurchase,
-        uint _maxPurchase)
+        uint _maxPurchase,
+        bool _whitelistStatus)
         external
         onlyAdmin() 
         icoNotActive() {
         require(duration > 0, 'duration should be > 0');
-        uint totalSupply = ERC20Interface(token).totalSupply();
+        uint totalSupply = ERC20Interface(_token).totalSupply();
         require(_availableTokens > 0 && _availableTokens <= totalSupply, 'totalSupply should be > 0 and <= totalSupply');
         require(_minPurchase > 0, '_minPurchase should > 0');
         require(_maxPurchase > 0 && _maxPurchase <= _availableTokens, '_maxPurchase should be > 0 and <= _availableTokens');
+        released = false;
+        token = _token;
+        ERC20Interface tokenInstance = ERC20Interface(token);
+        tokenInstance.transferFrom(msg.sender,address(this), _availableTokens);
         end = duration + block.timestamp; 
+        whitelistStatus = _whitelistStatus;
         price = _price;
         availableTokens = _availableTokens;
         minPurchase = _minPurchase;
@@ -60,6 +67,10 @@ contract ICO {
         external
         onlyAdmin() {
         investors[investor] = true;    
+    }
+
+    function getBalance() public view returns(uint256){
+        return address(this).balance;
     }
     
     function buy()
@@ -79,7 +90,6 @@ contract ICO {
     
     function release()
         external
-        onlyAdmin()
         icoEnded()
         tokensNotReleased() {
         ERC20Interface tokenInstance = ERC20Interface(token);
@@ -87,7 +97,15 @@ contract ICO {
             Sale storage sale = sales[i];
             tokenInstance.transfer(sale.investor, sale.quantity);
         }
+        released = true;
     }
+
+    function stop() public
+        icoEnded()
+        onlyAdmin()
+        tokensReleased(){
+            end = 0;
+        }
     
     function withdraw(
         address payable to,
@@ -96,7 +114,9 @@ contract ICO {
         onlyAdmin()
         icoEnded()
         tokensReleased() {
-        to.transfer(amount);    
+        to.transfer(amount);
+        ERC20Interface tokenInstance = ERC20Interface(token);
+        tokenInstance.transfer(to, tokenInstance.balanceOf(address(this)));
     }
     
     modifier icoActive() {
@@ -125,7 +145,7 @@ contract ICO {
     }
     
     modifier onlyInvestors() {
-        require(investors[msg.sender] == true, 'only investors');
+        require(whitelistStatus == false || investors[msg.sender] == true, 'only investors');
         _;
     }
     

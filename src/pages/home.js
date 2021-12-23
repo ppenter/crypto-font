@@ -11,24 +11,13 @@ import Teams from '../components/Infomation/Teams';
 import lexi from "../assets/lexi40.png";
   
 const Home = (props) => {
-
-    const dispatch = useDispatch();
-
-    const ico = useSelector((state) => state.ico);
     
-    useEffect(() => {
-        if (props.blockchain.account !== "" && props.blockchain.cFont !== null) {
-          dispatch(fetchData(props.blockchain.account));
-        }
-        dispatch(fetchMarket());
-      }, [dispatch,props.blockchain.account,props.blockchain.cFont ]);
-
   return (
 
         <s.Container ai="center" >
             <s.SpacerLarge/>
             <s.SpacerLarge/>
-            <ICO ico = {ico} blockchain={props.blockchain} data={props.data}/>
+            <ICO blockchain={props.blockchain} data={props.data} ico={props.ico}/>
             <s.Container ai="center" >
             <s.SpacerLarge/>
             <s.SpacerLarge/>
