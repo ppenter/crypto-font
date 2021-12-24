@@ -103,7 +103,7 @@ export const connect = () => {
         });
         // Add listeners end
       } else {
-        clearCache();
+        await web3Modal.clearCachedProvider();
         dispatch(connectFailed("Change network to " + process.env.REACT_APP_modalNetwork));
       }
   };

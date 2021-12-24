@@ -22790,12 +22790,12 @@
     "1337": {
       "events": {},
       "links": {},
-      "address": "0x3A53CF493588E1e3e75aA4D27A575c5D57C65C6d",
-      "transactionHash": "0x0691c2f4dd1049d7b3a2e487102af0b907715b1b2e00501924b5b2a57fb4f467"
+      "address": "0x53E0923EA6501e15337bba7edde83cAE20826536",
+      "transactionHash": "0x847a68702b298ca27987a120b59f6319a25d20797733d7afdeb7d622d9348e2a"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-23T09:42:30.770Z",
+  "updatedAt": "2021-12-23T10:02:51.620Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

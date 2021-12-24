@@ -10,6 +10,7 @@ import {
 import eBTCMarket from "../../contracts/Market.json";
 import eBTC from "../../contracts/eBTC.json";
 import cFont from "../../contracts/cryptoFont.json";
+import ICO from "../../contracts/ICO.json";
   
 const Footer = () => {
   return (
@@ -28,6 +29,7 @@ const Footer = () => {
             <p>cFont: </p><FooterLink target="_blank" href={process.env.REACT_APP_Explorer +"address/"+ cFont.networks[process.env.REACT_APP_networkID].address}>{cFont.networks[process.env.REACT_APP_networkID].address}</FooterLink>
             <p>eBTC: </p><FooterLink target="_blank" href={process.env.REACT_APP_Explorer +"address/"+ eBTC.networks[process.env.REACT_APP_networkID].address}>{eBTC.networks[process.env.REACT_APP_networkID].address}</FooterLink>
             <p>Market: </p><FooterLink target="_blank" href={process.env.REACT_APP_Explorer +"address/"+ eBTCMarket.networks[process.env.REACT_APP_networkID].address}>{eBTCMarket.networks[process.env.REACT_APP_networkID].address}</FooterLink>
+            <p>ICO: </p><FooterLink target="_blank" href={process.env.REACT_APP_Explorer +"address/"+ ICO.networks[process.env.REACT_APP_networkID].address}>{ICO.networks[process.env.REACT_APP_networkID].address}</FooterLink>
           </Column>
         </Row>
       </Container>
