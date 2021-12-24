@@ -29,7 +29,7 @@ function App() {
   const ico = useSelector((state) => state.ico);
   // console.log(market);
   // console.log(data);
-  console.log(blockchain);
+  // console.log(blockchain);
 
   useEffect(() => {
     if (blockchain.account !== "" && blockchain.cFont !== null) {
