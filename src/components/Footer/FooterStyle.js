@@ -14,8 +14,8 @@ export const Box = styled.div`
    
 export const Container = styled.div`
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: ${({ fd }) => (fd ? fd : "column")};
+    justify-content: ${({ jc }) => (jc ? jc : "center")};
     max-width: 1000px;
     margin: 0 auto;
     /* background: red; */
@@ -23,9 +23,13 @@ export const Container = styled.div`
    
 export const Column = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: ;
+  flex-direction: ${({ fd }) => (fd ? fd : "column")};
+  justify-content: ${({ jc }) => (jc ? jc : "center")};
+  width:  ${({ w }) => ( w ? w : "50%" )};
   text-align: left;
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
    
 export const Row = styled.div`

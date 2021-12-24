@@ -41,7 +41,7 @@ const Navigation = () => {
                 </NavDropdown>
                 </Nav>
                 <Nav>
-                <Nav.Link>Buy $eBTC</Nav.Link>
+                <Nav.Link>Testnet</Nav.Link>
                 <Nav.Link>
                     {data.eBTCamount >= 0 ? (<Decimal number={data.eBTCamount}  fixed={2} currency={"eBTC"}/>):("")}
                 </Nav.Link>
