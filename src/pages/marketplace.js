@@ -125,7 +125,9 @@ const Marketplace = (props) => {
     <s.Screen>
       <s.SpacerLarge></s.SpacerLarge>
       <s.SpacerMedium />
-      <s.Container className="Fontcard" jc="space-evenly" fd="row" ai="center" style={{padding: 50}}>
+      <s.Container className="Fontcard" jc="center" fd="row" ai="center" style={{padding: 50, flexWrap: "wrap"}}>
+      <s.TextTitle>Filter</s.TextTitle>
+          <s.SpacerLarge/>
         <Dropdown>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
           {filterFont(rarityIndex)}
@@ -172,6 +174,7 @@ const Marketplace = (props) => {
                   return(
                     <div key={index} >
                   <CardRenderer item={item}/>
+                  <s.SpacerLarge/>
                   </div>
                   )
                 }

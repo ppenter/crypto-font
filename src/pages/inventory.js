@@ -155,6 +155,7 @@ const Inventory = (props) => {
         >
           WITHDRAW $eBTC
         </s.button>
+        <s.SpacerLarge/>
         <s.button
           disabled={loading || (parseFloat(props.data.ETHreward) / 10**18) <= 0 ? 1 : 0}
           onClick={(e) => {
@@ -165,6 +166,7 @@ const Inventory = (props) => {
           WITHDRAW BNB
         </s.button>
         </s.Container>
+        <s.SpacerLarge/>
         
         <s.SpacerMedium />
         <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
@@ -179,6 +181,7 @@ const Inventory = (props) => {
                 return (
                   <div key={index} >
                     <CardRenderer item={item}/>
+                    <s.SpacerLarge/>
                   </div>
                   );
               }
