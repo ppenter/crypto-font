@@ -42,7 +42,6 @@ function App() {
   }, [blockchain.cFont,dispatch, blockchain.account]);
 
 
-
   return (
     <s.Screen className="lexiBackground">
       <Navigation/>

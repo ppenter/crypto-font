@@ -8,6 +8,7 @@ import Cfontrenderer from '../components/cFontRenderer';
 import bigInt from 'big-integer';
 import Price from '../components/Market/Price';
 import Overall from '../components/Infomation/Overall';
+import CardRenderer from '../components/CardRenderer';
 import {
     NavLink,
 } from "../components/Navbar/NavbarElements.js";
@@ -17,6 +18,27 @@ const Inventory = (props) => {
     
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
+
+    let allFonts = props.market.allFont.map((item,index) => {
+      return(
+        {
+        name: item.name,
+        id: item.id,
+        rarity: item.rarity,
+        burn: item.burn,
+        dna: item.dna,
+        power: item.power,
+        price: "0",
+        seller: "",
+        size: item.size,
+        }
+      )
+    });
+
+    props.market.activeList.forEach((item) => {
+      allFonts[item.tokenId].price = item.price;
+      allFonts[item.tokenId].seller = item.seller;
+    })
 
       const allowToken = () => {
         setLoading(true);
@@ -152,52 +174,14 @@ const Inventory = (props) => {
         <s.SpacerMedium />
         {props.blockchain.account ? (
           <s.Container jc={"space-evenly"} fd={"row"} style={{ flexWrap: "wrap"}}>
-            {props.market.allFont.map((item, index) => {
-              if(props.data.MyFont.indexOf(item.id)>-1){
+            {allFonts.map((item, index) => {
+              if(props.data.MyFont.indexOf(item.id)>-1 || item.seller.toLowerCase() == props.blockchain.account.toLowerCase()){
                 return (
-                <NavLink key={item.id} to={"/font/"+item.id}>
-                  <s.Container className="Fontcard" key={index} style={{ padding: "15px" }}>
-                      <Cfontrenderer font={item}/>
-                    {/* <cFontRenderer className="phudImg" font={item} /> */}
-                    <s.SpacerXSmall />
-                    <s.Container>
-                      <s.TextID>#{item.id}</s.TextID>
-                      <s.TextDescription>NAME: {item.name}</s.TextDescription>
-                      <s.TextDescription>RARITY: {item.rarity}</s.TextDescription>
-                      <s.Container fd={"row"}>
-                      </s.Container>
-                    </s.Container>
-                  </s.Container>
-                  </NavLink>
-                );
+                  <div key={index} >
+                    <CardRenderer item={item}/>
+                  </div>
+                  );
               }
-              <s.SpacerLarge/>
-            })}
-
-            {props.market.activeList.map((item, index) => {
-              if(item.seller.toLowerCase() === props.blockchain.account.toLowerCase()){
-                
-                const list = props.market.allFont[item.tokenId];
-                return(
-                  <NavLink key={list.id} to={"/font/"+list.id}>
-                  <s.Container className="Fontcard" key={list.id} style={{ padding: "15px" }}>
-                      <Cfontrenderer font={list}/>
-                    {/* <cFontRenderer className="phudImg" font={item} /> */}
-                    <s.SpacerXSmall />
-                    <s.Container>
-                      <s.TextID>#{list.id}</s.TextID>
-                      <s.TextDescription>NAME: {list.name}</s.TextDescription>
-                      <s.TextDescription>RARITY: {list.rarity}</s.TextDescription>
-                      {/* <s.TextDescription>Size: {(20 + (list.Size % 80)) + 'px'}</s.TextDescription> */}
-                      <Price id={list.id} currency={"$eBTC"} list={props.market.activeList}/>
-                      <s.Container fd={"row"}>
-                      </s.Container>
-                    </s.Container>
-                  </s.Container>
-                  </NavLink>
-                )
-              }
-              <s.SpacerLarge/>
             })}
           
           </s.Container>

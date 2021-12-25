@@ -100,15 +100,15 @@
 }
 
 .Fontcard {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 6px 6px 2px 1px rgba(0,0,0,0.4);
   transition: 0.3s;
   border-radius: 5px;
   background-color: var(--background);
-  
+  border: 1px solid var(--disable);
 }
 
 .Fontcard:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 3px 3px 2px 1px rgba(0,0,0,0.6);
 }
 
 .right {

@@ -60,11 +60,14 @@ const ListingForm = (props) => {
         return (
           <s.Container>
           price
-          <s.Input type="number" min="0"
-          disabled={!props.data.cFontApproveToMarket ? (1):(0)}
-          onChange={ 
+          <s.Input 
+          type="number" 
+          min={0}
+          max={1000000}
+          disabled={!props.data.cFontApproveToMarket && listingPrice <= 0 ? (1):(0)}
+          onChange={
               (e) => setListingPrice(e.target.value !== "" ? (
-                  Web3.utils.toWei((e.target.value).toString())
+                  Web3.utils.toWei((e.target.value.toString().split(".").map((el,i)=>i?el.split("").slice(0,18).join(""):el).join(".")).toString())
               ) : (
                   0
               ))

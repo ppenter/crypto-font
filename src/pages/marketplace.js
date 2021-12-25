@@ -7,6 +7,9 @@ import Cfontrenderer from '../components/cFontRenderer';
 import Price from '../components/Market/Price';
 import { Dropdown } from 'react-bootstrap';
 import Overall from '../components/Infomation/Overall';
+import Decimal from '../components/Decimal';
+import Web3 from 'web3';
+import CardRenderer from '../components/CardRenderer';
 import {
     NavLink,
 } from "../components/Navbar/NavbarElements.js";
@@ -15,6 +18,7 @@ const Marketplace = (props) => {
 
     const dispatch = useDispatch();
     const [sortType, setSortType] = useState('price');
+    const [MarketType, setMarket] = useState(0);
     
 
     useEffect(() => {
@@ -26,15 +30,33 @@ const Marketplace = (props) => {
     const [rarityIndex, setRarityIndex] = useState(0);
     let [data, setData] = useState([]);
 
-    
+    let allFonts = props.market.allFont.map((item,index) => {
+      return(
+        {
+        name: item.name,
+        id: item.id,
+        rarity: item.rarity,
+        burn: item.burn,
+        dna: item.dna,
+        power: item.power,
+        price: "0",
+        seller: "",
+        size: item.size,
+        }
+      )
+    });
+
+    props.market.activeList.forEach((item) => {
+      allFonts[item.tokenId].price = item.price;
+    })
  
     useEffect(() => {
-      let active = props.market.activeList;
+      let active = allFonts;
       const sortArray = type => {
         const types = {
-          tokenId: 'tokenId',
+          tokenId: 'id',
           price: 'price',
-          tokenIdh: 'tokenId',
+          tokenIdh: 'id',
           priceh: 'price',
         };
         const sortProperty = types[type];
@@ -82,6 +104,15 @@ const Marketplace = (props) => {
       }
     }
 
+    const renderMarket = (e) => {
+      switch(e) {
+
+        case (1): return "On Sale";
+
+        default:      return  "All Fonts";
+      }
+    }
+
     let list = props.market.allFont;
 
     if(rarityIndex > 0){
@@ -112,7 +143,6 @@ const Marketplace = (props) => {
           <Dropdown.Toggle variant="success" id="dropdown-basic">
           {renderSort(sortType)}
           </Dropdown.Toggle>
-
           <Dropdown.Menu>
           <Dropdown.Item value="price" onClick={(e) => setSortType("price")}>Lowest Price</Dropdown.Item>
             <Dropdown.Item value="priceh" onClick={(e) => setSortType("priceh")}>Highest Price</Dropdown.Item>
@@ -120,39 +150,33 @@ const Marketplace = (props) => {
             <Dropdown.Item value="tokenIdh" onClick={(e) => setSortType("tokenIdh")}>Highest ID</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+          {renderMarket(MarketType)}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+          <Dropdown.Item value={0} onClick={(e) => setMarket(0)}>All Fonts</Dropdown.Item>
+            <Dropdown.Item value={1} onClick={(e) => setMarket(1)}>On sale</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         <s.SpacerLarge/>
       </s.Container>
+      <s.SpacerLarge/>
+      <s.SpacerLarge/>
           <s.Container jc={"center"} fd={"row"} style={{ flexWrap: "wrap"}}>
             
 
-            {data.map((i,j) => {
-              return (
-                <div key={j}>
-                {
-                  list.map((item,key) => {
-                    if(i.tokenId === item.id){
-                      return(
-                        <NavLink key={item.id} to={"/font/"+item.id}>
-                  <s.Container className="Fontcard" key={key} style={{ padding: "15px" }}>
-                      <Cfontrenderer font={item}/>
-                    <s.SpacerXSmall />
-                    <s.Container>
-                      <s.TextID>#{item.id}</s.TextID>
-                      <s.TextDescription>NAME: {item.name}</s.TextDescription>
-                      <s.TextDescription>RARITY: {item.rarity}</s.TextDescription>
-                      {/* <s.TextDescription>Size: {(20 + (item.Size % 80)) + 'px'}</s.TextDescription> */}
-                      <Price id={item.id} currency={"$eBTC"} list={props.market.activeList}/>
-                      <s.Container fd={"row"}>
-                      </s.Container>
-                    </s.Container>
-                  </s.Container>
-                  </NavLink>
-                      )
-                    }
-                  })
+            {data.map((item,index) => {
+              if(rarityIndex == item.rarity || rarityIndex == 0){
+                if(item.price !== "0" || MarketType == 0){
+                  return(
+                    <div key={index} >
+                  <CardRenderer item={item}/>
+                  </div>
+                  )
                 }
-                </div>
-              )
+              }
+              // return(<CardRenderer item={item}/>)
             })}
           </s.Container>
     </s.Screen>

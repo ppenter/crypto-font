@@ -54,7 +54,7 @@ const FontInfo = (props) => {
       <s.Screen>
           <s.SpacerLarge/>
           <s.SpacerLarge/>
-            <s.Container ai="center" jc={"space-evenly"} fd={"column"} style={{ flexWrap: "wrap"}}>
+            <s.Container className="Fontcard" ai="center" jc={"space-evenly"} fd={"column"} style={{ flexWrap: "wrap", padding:50}}>
                 <s.Container ai="center" jc="center">
                 <Cfontrenderer font={font.cFontInfo}></Cfontrenderer>
                 </s.Container>
