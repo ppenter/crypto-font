@@ -43,10 +43,31 @@ export const fetchMarket = () => {
         const cFontAddres = cFont.networks[process.env.REACT_APP_networkID].address;
         let onsale = await MarketContract.methods.getOnsaleOfToken(cFontAddres).call()
         let activeList = await MarketContract.methods.getActiveArrayOfContract(cFontAddres).call()
-        let allFont = await cFontContract.methods.getcFonts().call();
+        let allFonts = await cFontContract.methods.getcFonts().call();
         let remainingeBTC = await cFontContract.methods.remainingeBTC().call();
         let remainingEthers = await cFontContract.methods.remainingEthers().call();
         let feePool = await cFontContract.methods._feePool().call();
+
+        let allFont = allFonts.map((item,index) => {
+          return(
+            {
+            name: item.name,
+            id: item.id,
+            rarity: item.rarity,
+            burn: item.burn,
+            dna: item.dna,
+            power: item.power,
+            price: "0",
+            seller: "",
+            size: item.size,
+            }
+          )
+        });
+    
+        activeList.forEach((item) => {
+          allFont[item.tokenId].price = item.price;
+          allFont[item.tokenId].seller = item.seller.toLowerCase();
+        })
 
       dispatch(
         fetchMarketSuccess({

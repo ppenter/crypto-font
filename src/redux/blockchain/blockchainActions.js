@@ -86,7 +86,7 @@ export const connect = () => {
         );
         dispatch(
           connectSuccess({
-            account: accounts[0],
+            account: accounts[0].toLowerCase(),
             cFont: cFontContract,
             eBitcoin: eBitcoinContract,
             eBTCMarket: eBTCMarketContract,

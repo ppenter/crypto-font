@@ -29,29 +29,9 @@ const Marketplace = (props) => {
     
     const [rarityIndex, setRarityIndex] = useState(0);
     let [data, setData] = useState([]);
-
-    let allFonts = props.market.allFont.map((item,index) => {
-      return(
-        {
-        name: item.name,
-        id: item.id,
-        rarity: item.rarity,
-        burn: item.burn,
-        dna: item.dna,
-        power: item.power,
-        price: "0",
-        seller: "",
-        size: item.size,
-        }
-      )
-    });
-
-    props.market.activeList.forEach((item) => {
-      allFonts[item.tokenId].price = item.price;
-    })
  
     useEffect(() => {
-      let active = allFonts;
+      let active = props.market.allFont;
       const sortArray = type => {
         const types = {
           tokenId: 'id',

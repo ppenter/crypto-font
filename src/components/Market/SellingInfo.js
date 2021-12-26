@@ -75,7 +75,7 @@ const SellingInfo = (props) => {
       const seller = props.list.seller.toLowerCase()
 
     return (
-    <s.Container>
+    <s.Container className="Fontcard">
     <s.SpacerLarge/>
                     <s.Container>
                         <s.Container jc="space-evenly" ai="center">

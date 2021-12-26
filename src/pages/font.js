@@ -75,6 +75,7 @@ const FontInfo = (props) => {
                 )}
             </s.Container>
             </s.Container>
+            <s.SpacerLarge/>
             <s.Container flex="1" fd="column" jc="center" ai="center" style={{}}>
             {market.onsale.indexOf(id) > -1 ? (<SellingInfo id = {id} blockchain={props.blockchain} data={props.data} list = {list}></SellingInfo>):(null)}
             </s.Container>

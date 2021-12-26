@@ -19,27 +19,6 @@ const Inventory = (props) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
 
-    let allFonts = props.market.allFont.map((item,index) => {
-      return(
-        {
-        name: item.name,
-        id: item.id,
-        rarity: item.rarity,
-        burn: item.burn,
-        dna: item.dna,
-        power: item.power,
-        price: "0",
-        seller: "",
-        size: item.size,
-        }
-      )
-    });
-
-    props.market.activeList.forEach((item) => {
-      allFonts[item.tokenId].price = item.price;
-      allFonts[item.tokenId].seller = item.seller;
-    })
-
       const allowToken = () => {
         setLoading(true);
         props.blockchain.eBitcoin.methods
@@ -176,8 +155,8 @@ const Inventory = (props) => {
         <s.SpacerMedium />
         {props.blockchain.account ? (
           <s.Container jc={"space-evenly"} fd={"row"} style={{ flexWrap: "wrap"}}>
-            {allFonts.map((item, index) => {
-              if(props.data.MyFont.indexOf(item.id)>-1 || item.seller.toLowerCase() == props.blockchain.account.toLowerCase()){
+            {props.market.allFont.map((item, index) => {
+              if(props.data.MyFont.indexOf(item.id)>-1 || item.seller == props.blockchain.account){
                 return (
                   <div key={index} >
                     <CardRenderer item={item}/>
