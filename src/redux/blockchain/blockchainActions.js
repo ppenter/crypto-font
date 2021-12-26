@@ -15,17 +15,15 @@ const providerOptions = {
     package: WalletConnectProvider,
     options: {
       infuraId: "fc1094913ebd41a3853b32571ebe6bbb",
-    }
+    },
   },
 };
 
 const web3Modal = new Web3Modal({
   network: process.env.REACT_APP_modalNetwork, // optional
   cacheProvider: true, // optional
-  providerOptions // required
+  providerOptions, // required
 });
-
-
 
 const connectRequest = () => {
   return {
@@ -57,55 +55,62 @@ const updateAccountRequest = (payload) => {
 export const connect = () => {
   return async (dispatch) => {
     dispatch(connectRequest());
-      const provider = await web3Modal.connect();
-      let web3 = new Web3(provider);
-      const networkId = process.env.REACT_APP_networkID;
-      const accounts = await web3.eth.getAccounts();
-      const chainId = await web3.eth.getChainId();
-      const cFontNetworkData = await cFont.networks[networkId];
-      const eBitcoinNetworkData = await eBTC.networks[networkId];
-      const eBTCMarketNetworkData = await eBTCMarket.networks[networkId];
-      const ICONetworkData = await ICO.networks[networkId];
-    
-      if (cFontNetworkData && eBitcoinNetworkData && eBTCMarketNetworkData && networkId == chainId) {
-        const cFontContract = new web3.eth.Contract(
-          cFont.abi,
-          cFontNetworkData.address
-        );
-        const eBitcoinContract = new web3.eth.Contract(
-          eBTC.abi,
-          eBitcoinNetworkData.address
-        );
-        const eBTCMarketContract = new web3.eth.Contract(
-          eBTCMarket.abi,
-          eBTCMarketNetworkData.address
-        );
-        const ICOMarketContract = new web3.eth.Contract(
-          ICO.abi,
-          ICONetworkData.address
-        );
-        dispatch(
-          connectSuccess({
-            account: accounts[0].toLowerCase(),
-            cFont: cFontContract,
-            eBitcoin: eBitcoinContract,
-            eBTCMarket: eBTCMarketContract,
-            ICO: ICOMarketContract,
-            web3: web3,
-          })
-        );
-        // Add listeners start
-        provider.on("accountsChanged", (accounts) => {
-          dispatch(updateAccount(accounts[0]));
-        });
-        provider.on("chainChanged", () => {
-          clearCache();
-        });
-        // Add listeners end
-      } else {
-        await web3Modal.clearCachedProvider();
-        dispatch(connectFailed("Change network to " + process.env.REACT_APP_modalNetwork));
-      }
+    const provider = await web3Modal.connect();
+    let web3 = new Web3(provider);
+    const networkId = process.env.REACT_APP_networkID;
+    const accounts = await web3.eth.getAccounts();
+    const chainId = await web3.eth.getChainId();
+    const cFontNetworkData = await cFont.networks[networkId];
+    const eBitcoinNetworkData = await eBTC.networks[networkId];
+    const eBTCMarketNetworkData = await eBTCMarket.networks[networkId];
+    const ICONetworkData = await ICO.networks[networkId];
+
+    if (
+      cFontNetworkData &&
+      eBitcoinNetworkData &&
+      eBTCMarketNetworkData &&
+      networkId == chainId
+    ) {
+      const cFontContract = new web3.eth.Contract(
+        cFont.abi,
+        cFontNetworkData.address
+      );
+      const eBitcoinContract = new web3.eth.Contract(
+        eBTC.abi,
+        eBitcoinNetworkData.address
+      );
+      const eBTCMarketContract = new web3.eth.Contract(
+        eBTCMarket.abi,
+        eBTCMarketNetworkData.address
+      );
+      const ICOMarketContract = new web3.eth.Contract(
+        ICO.abi,
+        ICONetworkData.address
+      );
+      dispatch(
+        connectSuccess({
+          account: accounts[0].toLowerCase(),
+          cFont: cFontContract,
+          eBitcoin: eBitcoinContract,
+          eBTCMarket: eBTCMarketContract,
+          ICO: ICOMarketContract,
+          web3: web3,
+        })
+      );
+      // Add listeners start
+      provider.on("accountsChanged", (accounts) => {
+        dispatch(updateAccount(accounts[0]));
+      });
+      provider.on("chainChanged", () => {
+        clearCache();
+      });
+      // Add listeners end
+    } else {
+      await web3Modal.clearCachedProvider();
+      dispatch(
+        connectFailed("Change network to " + process.env.REACT_APP_modalNetwork)
+      );
+    }
   };
 };
 

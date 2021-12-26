@@ -14,6 +14,10 @@ interface ERC20Interface {
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 }
 
+interface ICOInterface{
+
+}
+
 contract ICO {
     struct Sale {
         address investor;
@@ -34,7 +38,7 @@ contract ICO {
         admin = msg.sender;
     }
     
-    function start(
+    function create(
         uint duration,
         address _token,
         uint _price,

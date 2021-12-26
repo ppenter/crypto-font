@@ -1,25 +1,20 @@
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import * as s from "./styles/global";
-import { fetchData } from "./redux/data/dataActions";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMarket } from "./redux/marketData/marketDataActions";
-import { fetchICO } from "./redux/ico/icoActions";
-import {
-  Routes,
-  Route,
-  Outlet
-} from "react-router-dom";
-import Home from "./pages/home.js"
-import Lands from "./pages/lands.js"
-import Inventory from "./pages/inventory.js"
-import Marketplace from "./pages/marketplace.js"
-import FontInfo from "./pages/font.js"
-import Play from "./pages/play";
-import Navigation from './components/Navbar';
+import { Outlet, Route, Routes } from "react-router-dom";
+import "./App.css";
 import Footer from "./components/Footer/Footer";
-import lexi from "./assets/lexi40.png"
+import Navigation from "./components/Navbar";
+import FontInfo from "./pages/font.js";
+import Home from "./pages/home.js";
+import Inventory from "./pages/inventory.js";
+import Lands from "./pages/lands.js";
+import Marketplace from "./pages/marketplace.js";
+import Play from "./pages/play";
+import { fetchData } from "./redux/data/dataActions";
+import { fetchICO } from "./redux/ico/icoActions";
+import { fetchMarket } from "./redux/marketData/marketDataActions";
+import * as s from "./styles/global";
 function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
@@ -39,48 +34,69 @@ function App() {
     }
     dispatch(fetchMarket());
     dispatch(fetchICO());
-  }, [blockchain.cFont,dispatch, blockchain.account]);
-
+  }, [blockchain.cFont, dispatch, blockchain.account]);
 
   return (
     <s.Screen className="lexiBackground">
-      <Navigation/>
-    <s.Container  ai="center">
-      <s.Container w="80%" style={{minHeight: 1000}}>
-    <s.TextDescription>{blockchain.errorMsg !== "" ? (blockchain.errorMsg) : (null)}</s.TextDescription>
-    
-      <Outlet />
-        <Routes>
+      <Navigation />
+      <s.Container ai="center">
+        <s.Container w="80%" style={{ minHeight: 1000 }}>
+          <s.TextDescription>
+            {blockchain.errorMsg !== "" ? blockchain.errorMsg : null}
+          </s.TextDescription>
 
-      <Route path="/" element={<Home blockchain={blockchain} ico={ico} market={market} data={data}/>} />
-      <Route path="/inventory" element={<Inventory blockchain={blockchain} market={market} data={data} />} />
-      <Route path="/land" element={<Lands/>} />
-      <Route path="/metaverse" element={<Play/>} />
-      <Route path="/marketplace" element={<Marketplace font={font} blockchain={blockchain} market={market} data={useSelector((state) => state.data)} />}/>
-      <Route path="/font/:id" element={<FontInfo market={market} data={data} blockchain={blockchain}  />}/>
-      {/* <Route path="/play" element={<Play />} /> */}
-    </Routes>
-    <s.SpacerLarge/>
-    <s.SpacerLarge/>
-    <s.SpacerLarge/>
-    </s.Container>
-    <Footer/>
-    </s.Container>
-  </s.Screen>
-  
-);
+          <Outlet />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  blockchain={blockchain}
+                  ico={ico}
+                  market={market}
+                  data={data}
+                />
+              }
+            />
+            <Route
+              path="/inventory"
+              element={
+                <Inventory
+                  blockchain={blockchain}
+                  market={market}
+                  data={data}
+                />
+              }
+            />
+            <Route path="/land" element={<Lands />} />
+            <Route path="/metaverse" element={<Play />} />
+            <Route
+              path="/marketplace"
+              element={
+                <Marketplace
+                  font={font}
+                  blockchain={blockchain}
+                  market={market}
+                  data={useSelector((state) => state.data)}
+                />
+              }
+            />
+            <Route
+              path="/font/:id"
+              element={
+                <FontInfo market={market} data={data} blockchain={blockchain} />
+              }
+            />
+            <Route path="/play" element={<Play />} />
+          </Routes>
+          <s.SpacerLarge />
+          <s.SpacerLarge />
+          <s.SpacerLarge />
+        </s.Container>
+        <Footer />
+      </s.Container>
+    </s.Screen>
+  );
 }
-
-// function Home() {
-
-//   const dispatch = useDispatch();
-
-  
-
-  
-
-//   return (
-
-    
 
 export default App;
