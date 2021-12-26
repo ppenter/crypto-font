@@ -134,6 +134,9 @@
   -webkit-box-orient: vertical;
 }
 
+.w100{
+  width: 100%;
+}
 
 button:disabled {
   background: var(--unfocus);

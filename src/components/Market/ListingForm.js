@@ -6,11 +6,15 @@ import { fetchData } from "../../redux/data/dataActions";
 import { fetchMarket } from "../../redux/marketData/marketDataActions";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchcFont } from "../../redux/cFontInfo/cFontInfoActions";
+import Cfontrenderer from "../cFontRenderer";
+import CardRenderer from "../CardRenderer";
 
 const ListingForm = (props) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const market = useSelector((state) => state.market);
+
+
 
   const sell = (id) => {
     setLoading(true);
@@ -29,6 +33,7 @@ const ListingForm = (props) => {
         dispatch(fetchData(props.blockchain.account));
         dispatch(fetchMarket());
         dispatch(fetchcFont(props.id));
+        
       });
   };
 
@@ -51,16 +56,21 @@ const ListingForm = (props) => {
   };
 
   const [listingPrice, setListingPrice] = useState("0");
+
+  console.log(listingPrice)
   if (market.onsale.indexOf(props.id) > -1) {
     return "This cFont is already listed!";
   } else {
     return (
       <s.Container>
+        <CardRenderer item={props.font}/>
+        <s.SpacerLarge/>
         price
         <s.Input
           type="number"
+          className="w100"
           min={0}
-          max={1000000}
+          maxLength={12}
           disabled={
             !props.data.cFontApproveToMarket && listingPrice <= 0 ? 1 : 0
           }
@@ -68,16 +78,16 @@ const ListingForm = (props) => {
             setListingPrice(
               e.target.value !== ""
                 ? Web3.utils.toWei(
-                    e.target.value
+                  e.target.value
                       .toString()
                       .split(".")
                       .map((el, i) =>
                         i ? el.split("").slice(0, 18).join("") : el
                       )
                       .join(".")
-                      .toString()
+                      .toString().replace("-", "")
                   )
-                : 0
+                : "0"
             )
           }
         ></s.Input>

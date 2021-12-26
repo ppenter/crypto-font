@@ -8,7 +8,7 @@ import * as s from "../styles/global";
 const Marketplace = (props) => {
   const dispatch = useDispatch();
   const [sortType, setSortType] = useState("price");
-  const [MarketType, setMarket] = useState(0);
+  const [MarketType, setMarket] = useState(1);
 
   useEffect(() => {
     dispatch(fetchMarket());
