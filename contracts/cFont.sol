@@ -40,6 +40,8 @@ contract cryptoFont is ERC721Enumerable,utils  {
 
     event NewcFont(address indexed owner, uint256 id, uint dna);
 
+    event distributed(uint256 time, uint256 ebtc, uint256 ethers);
+
     function _createRandomNum(uint256 _mod, string memory str) internal view returns(uint256){
         uint256 randomNum = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp, msg.sender, str)));
         return randomNum % _mod;
@@ -160,7 +162,7 @@ contract cryptoFont is ERC721Enumerable,utils  {
             tokenToEthers[i] += ethersPerRare * _getRarity(i);
             _feePool -= feePerRare * _getRarity(i);
         }
-
+        emit distributed(block.timestamp, rewardPerRare * rarityCounter, ethersPerRare * rarityCounter);
         _pastDistributedReward = block.timestamp;
     }
 
