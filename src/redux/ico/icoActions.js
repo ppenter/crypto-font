@@ -28,16 +28,16 @@ export const fetchICO = () => {
     dispatch(fetchICORequest());
     let web3 = new Web3(process.env.REACT_APP_RPC);
     try {
-        const deployedNetwork = ICO.networks[process.env.REACT_APP_networkID];
-        const ICOContract = new web3.eth.Contract(
-          ICO.abi,
-          deployedNetwork.address,
-        );
-        let icoRemain = await ICOContract.methods.availableTokens().call();
-        let icoPrice = await ICOContract.methods.price().call();
-        let minPurchase = await ICOContract.methods.minPurchase().call();
-        let maxPurchase = await ICOContract.methods.maxPurchase().call();
-        let end = await ICOContract.methods.end().call();
+      const deployedNetwork = ICO.networks[process.env.REACT_APP_networkID];
+      const ICOContract = new web3.eth.Contract(
+        ICO.abi,
+        deployedNetwork.address
+      );
+      let icoRemain = await ICOContract.methods.availableTokens().call();
+      let icoPrice = await ICOContract.methods.price().call();
+      let minPurchase = await ICOContract.methods.minPurchase().call();
+      let maxPurchase = await ICOContract.methods.maxPurchase().call();
+      let end = await ICOContract.methods.end().call();
 
       dispatch(
         fetchICOSuccess({

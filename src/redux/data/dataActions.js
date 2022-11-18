@@ -25,18 +25,13 @@ export const fetchData = (account) => {
   return async (dispatch) => {
     dispatch(fetchDataRequest());
     try {
-        
       let MyFont = await store
         .getState()
         .blockchain.cFont.methods.getIdsOfOwner(account)
         .call();
 
-      let NFTaddress = await store
-        .getState()
-        .blockchain.cFont._address;
-      let Marketaddress = await store
-        .getState()
-        .blockchain.eBTCMarket._address;
+      let NFTaddress = await store.getState().blockchain.cFont._address;
+      let Marketaddress = await store.getState().blockchain.eBTCMarket._address;
 
       let tokenAllow = await store
         .getState()
@@ -58,9 +53,9 @@ export const fetchData = (account) => {
         .call();
 
       let icoWhitelist = await store
-      .getState()
-      .blockchain.ICO.methods.investors(account)
-      .call();
+        .getState()
+        .blockchain.ICO.methods.investors(account)
+        .call();
 
       // let eBTCreward = 0;
       // let ETHreward = 0;
@@ -71,11 +66,11 @@ export const fetchData = (account) => {
       const ETHreward = await store
         .getState()
         .blockchain.cFont.methods.showEthers(account)
-        .call();  
+        .call();
       let pastDistributedReward = await store
         .getState()
         .blockchain.cFont.methods._pastDistributedReward()
-        .call();  
+        .call();
       dispatch(
         fetchDataSuccess({
           MyFont,

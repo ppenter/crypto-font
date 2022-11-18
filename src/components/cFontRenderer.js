@@ -7,7 +7,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
 
   let dnaStr = String(font.dna);
 
-//   while (dnaStr.length < 10) dnaStr = "0" + dnaStr;
+  //   while (dnaStr.length < 10) dnaStr = "0" + dnaStr;
 
   // let phudleDetail = {
   //   // body: dnaStr.substring(0, 2) % 3,
@@ -23,9 +23,16 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
   let third = dnaStr.substring(6, 9) % 256;
   // let fouth = dnaStr.substring(9, 12) % 256;
   let str = ("0000" + font.power).substring(font.power.toString().length);
-  let c =  first.toString() +","+ second.toString() +","+ third.toString() +","+ "1";
+  let c =
+    first.toString() +
+    "," +
+    second.toString() +
+    "," +
+    third.toString() +
+    "," +
+    "1";
 
-  let unicode = (eval('"\\u' + str + '"'));
+  let unicode = eval('"\\u' + str + '"');
 
   return (
     <div
@@ -36,7 +43,7 @@ const Cfontrenderer = ({ font = null, size = 200, style }) => {
         textAlign: "center",
         justifyContent: "center",
         alignItems: "center",
-        fontSize: (20 + (font.size % 80)) + 'px',
+        fontSize: 20 + (font.size % 80) + "px",
         color: "white",
         textShadow: `0px 0px 20px rgb(${c})`,
         ...style,

@@ -24,6 +24,7 @@ contract cryptoFont is ERC721Enumerable,utils  {
     mapping(uint256 => uint256) public tokenToReward;
     mapping(uint256 => uint256) public tokenToEthers;
     mapping(address => uint256) public burnCounter;
+    uint256 public allRarityBurn = 0;
 
     struct cFont {
         string name;
@@ -92,8 +93,9 @@ contract cryptoFont is ERC721Enumerable,utils  {
         require(ownerOf(id) == msg.sender);
         burnCounter[msg.sender] += cFonts[id].rarity;
         rarityCounter -= cFonts[id].rarity;
-        _burn(id);
+        allRarityBurn+=cFonts[id].rarity;
         cFonts[id].burn = true;
+        _burn(id);
     }
 
     function getcFonts() public view returns(cFont[] memory) {

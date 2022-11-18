@@ -14,13 +14,17 @@ interface ERC20Interface {
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
 }
 
+interface ICOInterface{
+
+}
+
 contract ICO {
     struct Sale {
         address investor;
         uint quantity;
     }
-    Sale[] public sales;
     mapping(address => bool) public investors;
+    mapping(address => uint256) public sales;
     address public token;
     address public admin;
     uint public end;
@@ -28,14 +32,13 @@ contract ICO {
     uint public availableTokens;
     uint public minPurchase;
     uint public maxPurchase;
-    bool public released;
     bool public whitelistStatus = false;
     
     constructor() {
         admin = msg.sender;
     }
     
-    function start(
+    function create(
         uint duration,
         address _token,
         uint _price,
@@ -49,9 +52,8 @@ contract ICO {
         require(duration > 0, 'duration should be > 0');
         uint totalSupply = ERC20Interface(_token).totalSupply();
         require(_availableTokens > 0 && _availableTokens <= totalSupply, 'totalSupply should be > 0 and <= totalSupply');
-        require(_minPurchase > 0, '_minPurchase should > 0');
-        require(_maxPurchase > 0 && _maxPurchase <= _availableTokens, '_maxPurchase should be > 0 and <= _availableTokens');
-        released = false;
+        require(_minPurchase > 0 && _minPurchase * _price <= _availableTokens, '_minPurchase should > 0');
+        require(_maxPurchase > 0 && _maxPurchase >= _minPurchase, '_maxPurchase should be > 0 and <= _availableTokens');
         token = _token;
         ERC20Interface tokenInstance = ERC20Interface(token);
         tokenInstance.transferFrom(msg.sender,address(this), _availableTokens);
@@ -81,29 +83,22 @@ contract ICO {
         require(msg.value >= minPurchase && msg.value <= maxPurchase, 'have to send between minPurchase and maxPurchase');
         uint quantity = price * msg.value;
         require(quantity <= availableTokens, 'Not enough tokens left for sale');
-        sales.push(Sale(
-            msg.sender,
-            quantity
-        ));
+        sales[msg.sender] += quantity;
         availableTokens -= quantity;
     }
     
-    function release()
+    function claim()
         external
         icoEnded()
-        tokensNotReleased() {
+        {
         ERC20Interface tokenInstance = ERC20Interface(token);
-        for(uint i = 0; i < sales.length; i++) {
-            Sale storage sale = sales[i];
-            tokenInstance.transfer(sale.investor, sale.quantity);
-        }
-        released = true;
+        tokenInstance.transfer(msg.sender, sales[msg.sender]);
     }
 
     function stop() public
         icoEnded()
         onlyAdmin()
-        tokensReleased(){
+        {
             end = 0;
         }
     
@@ -113,7 +108,7 @@ contract ICO {
         external
         onlyAdmin()
         icoEnded()
-        tokensReleased() {
+        {
         to.transfer(amount);
         ERC20Interface tokenInstance = ERC20Interface(token);
         tokenInstance.transfer(to, tokenInstance.balanceOf(address(this)));
@@ -131,16 +126,6 @@ contract ICO {
     
     modifier icoEnded() {
         require(end > 0 && (block.timestamp >= end || availableTokens <= minPurchase * price), 'ICO must have ended');
-        _;
-    }
-    
-    modifier tokensNotReleased() {
-        require(released == false, 'Tokens must NOT have been released');
-        _;
-    }
-    
-    modifier tokensReleased() {
-        require(released == true, 'Tokens must have been released');
         _;
     }
     
