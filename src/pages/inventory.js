@@ -11,6 +11,22 @@ const Inventory = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
+  let allFonts = props.market.allFont.map((item,index) => {
+    return(
+      {
+      name: item.name,
+      id: item.id,
+      rarity: item.rarity,
+      burn: item.burn,
+      dna: item.dna,
+      power: item.power,
+      price: "0",
+      seller: "",
+      size: item.size,
+      }
+    )
+  });
+
   const allowToken = () => {
     setLoading(true);
     props.blockchain.eBitcoin.methods
@@ -152,7 +168,7 @@ const Inventory = (props) => {
         <s.SpacerMedium />
         <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
         <s.TextDescription>eBTC reward: {(parseFloat(props.data.eBTCreward) /10**18).toFixed(2)}</s.TextDescription>
-        <s.TextDescription>ETH reward: {(parseFloat(props.data.ETHreward) /10**18).toFixed(2)}</s.TextDescription>
+        <s.TextDescription>BNB reward: {(parseFloat(props.data.ETHreward) /10**18).toFixed(2)}</s.TextDescription>
         </s.Container>
         <s.SpacerMedium />
         {props.blockchain.account ? (
