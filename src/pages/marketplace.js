@@ -40,7 +40,7 @@ const Marketplace = (props) => {
       setData(sorted);
     };
     sortArray(sortType);
-  }, [sortType, props.market.activeList]);
+  }, [sortType, props.market.activeList, props.market.allFont]);
 
   const setRarity = (e) => {
     setRarityIndex(e);
