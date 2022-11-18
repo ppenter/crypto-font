@@ -33,7 +33,7 @@ module.exports = {
     },
     mumbai: {
       provider: function() {
-        return new HDWalletProvider(mnemonic, "https://polygon-testnet.public.blastapi.io")
+        return new HDWalletProvider(mnemonic, "https://rpc.ankr.com/polygon_mumbai")
       },
       network_id: 80001,
       skipDryRun: true,
