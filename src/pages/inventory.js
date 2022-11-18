@@ -125,74 +125,45 @@ const Inventory = (props) => {
             )}
           </s.Container>
 
-          <s.SpacerMedium />
-          <s.Container
-            jc="space-evenly"
-            fd={"row"}
-            style={{ flexWrap: "wrap" }}
-          >
-            <s.button
-              disabled={
-                loading || parseFloat(props.data.eBTCreward) / 10 ** 18 <= 0
-                  ? 1
-                  : 0
-              }
-              onClick={(e) => {
-                e.preventDefault();
-                getReward();
-              }}
-            >
-              WITHDRAW $eBTC
-            </s.button>
-            <s.SpacerLarge />
-            <s.button
-              disabled={
-                loading || parseFloat(props.data.ETHreward) / 10 ** 18 <= 0
-                  ? 1
-                  : 0
-              }
-              onClick={(e) => {
-                e.preventDefault();
-                getEthers();
-              }}
-            >
-              WITHDRAW BNB
-            </s.button>
-          </s.Container>
-          <s.SpacerLarge />
-
-          <s.SpacerMedium />
-          <s.Container
-            jc="space-evenly"
-            fd={"row"}
-            style={{ flexWrap: "wrap" }}
-          >
-            <s.TextDescription>
-              eBTC reward:{" "}
-              {(parseFloat(props.data.eBTCreward) / 10 ** 18).toFixed(2)}
-            </s.TextDescription>
-            <s.TextDescription>
-              BNB reward:{" "}
-              {(parseFloat(props.data.ETHreward) / 10 ** 18).toFixed(2)}
-            </s.TextDescription>
-          </s.Container>
-          <s.SpacerMedium />
-          {props.blockchain.account ? (
-            <s.Container
-              jc={"space-evenly"}
-              fd={"row"}
-              style={{ flexWrap: "wrap" }}
-            >
-              {props.market.allFont.map((item, index) => {
-                if (
-                  props.data.MyFont.indexOf(item.id) > -1 ||
-                  item.seller == props.blockchain.account
-                ) {
-                  return (
-                    <div key={index}>
-                      <CardRenderer item={item} />
-                      <s.SpacerLarge />
-                    </div>
+        <s.SpacerMedium />
+        <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
+        <s.button
+          disabled={loading || (parseFloat(props.data.eBTCreward) / 10**18) <= 0 ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            getReward();
+          }}
+        >
+          WITHDRAW $eBTC
+        </s.button>
+        <s.SpacerLarge/>
+        <s.button
+          disabled={loading || (parseFloat(props.data.ETHreward) / 10**18) <= 0 ? 1 : 0}
+          onClick={(e) => {
+            e.preventDefault();
+            getEthers();
+          }}
+        >
+          WITHDRAW ETH
+        </s.button>
+        </s.Container>
+        <s.SpacerLarge/>
+        
+        <s.SpacerMedium />
+        <s.Container jc="space-evenly" fd={"row"} style={{ flexWrap: "wrap"}}>
+        <s.TextDescription>eBTC reward: {(parseFloat(props.data.eBTCreward) /10**18).toFixed(2)}</s.TextDescription>
+        <s.TextDescription>ETH reward: {(parseFloat(props.data.ETHreward) /10**18).toFixed(2)}</s.TextDescription>
+        </s.Container>
+        <s.SpacerMedium />
+        {props.blockchain.account ? (
+          <s.Container jc={"space-evenly"} fd={"row"} style={{ flexWrap: "wrap"}}>
+            {allFonts.map((item, index) => {
+              if(props.data.MyFont.indexOf(item.id)>-1 || item.seller.toLowerCase() == props.blockchain.account.toLowerCase()){
+                return (
+                  <div key={index} >
+                    <CardRenderer item={item}/>
+                    <s.SpacerLarge/>
+                  </div>
                   );
                 }
               })}

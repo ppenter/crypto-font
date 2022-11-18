@@ -36,7 +36,7 @@ const ICO = (props) => {
         style={{ flexWrap: "wrap" }}
       >
         <s.TextDescription style={{ flexWrap: "wrap" }}>
-          PRICE: 1 BNB {"->"}{" "}
+          PRICE: 1 ETH {"->"}{" "}
           <Decimal
             number={parseFloat(ico.icoPrice)}
             decimal={0}

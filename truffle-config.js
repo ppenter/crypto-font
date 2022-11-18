@@ -41,7 +41,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "^0.8.0", // A version or constraint - Ex. "^0.5.0"
+      version: "^0.8.17", // A version or constraint - Ex. "^0.5.0"
     }
   }
 }
