@@ -30,26 +30,28 @@ export const fetchcFont = (id) => {
     // console.log(process.env.REACT_APP_networkID);
     let web3 = new Web3(process.env.REACT_APP_RPC);
     try {
-        const deployedNetwork = cFont.networks[process.env.REACT_APP_networkID];
-        const marketDeployed = Market.networks[process.env.REACT_APP_networkID];
+      const deployedNetwork = cFont.networks[process.env.REACT_APP_networkID];
+      const marketDeployed = Market.networks[process.env.REACT_APP_networkID];
 
-        const marketContract = new web3.eth.Contract(
-          Market.abi,
-          marketDeployed.address,
+      const marketContract = new web3.eth.Contract(
+        Market.abi,
+        marketDeployed.address
       );
-        const cFontContract = new web3.eth.Contract(
-            cFont.abi,
-            deployedNetwork.address,
-        );
-        let cFontOwner = await cFontContract.methods.ownerOf(id).call()
-        let cFontInfo = await cFontContract.methods.cFonts(id).call()
-        let price = await marketContract.methods.getPriceOfId(cFontContract._address,id).call()
-        // console.log(price);
+      const cFontContract = new web3.eth.Contract(
+        cFont.abi,
+        deployedNetwork.address
+      );
+      let cFontOwner = await cFontContract.methods.ownerOf(id).call();
+      let cFontInfo = await cFontContract.methods.cFonts(id).call();
+      let price = await marketContract.methods
+        .getPriceOfId(cFontContract._address, id)
+        .call();
+      // console.log(price);
       dispatch(
         fetchcFontSuccess({
-            cFontOwner,
-            cFontInfo,
-            price,
+          cFontOwner,
+          cFontInfo,
+          price,
         })
       );
     } catch (err) {

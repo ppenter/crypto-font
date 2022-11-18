@@ -31,6 +31,13 @@ module.exports = {
       network_id: 3,
       skipDryRun: true,
     },
+    mumbai: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://polygon-testnet.public.blastapi.io")
+      },
+      network_id: 80001,
+      skipDryRun: true,
+    },
   },
 
   // Set default mocha options here, use special reporters etc.
@@ -41,7 +48,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "^0.8.0", // A version or constraint - Ex. "^0.5.0"
+      version: "^0.8.17", // A version or constraint - Ex. "^0.5.0"
     }
   }
 }

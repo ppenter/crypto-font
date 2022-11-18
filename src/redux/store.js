@@ -6,7 +6,6 @@ import marketReducer from "./marketData/marketDataReducer";
 import cFontInfoReducer from "./cFontInfo/cFontInfoReducer";
 import icoReducer from "./ico/icoReducer";
 
-
 const rootReducer = combineReducers({
   blockchain: blockchainReducer,
   data: dataReducer,
