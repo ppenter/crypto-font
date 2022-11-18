@@ -3,6 +3,7 @@ import * as s from "../../styles/global";
 import Decimal from "../Decimal";
 
 const Overall = (props) => {
+  console.log(props.market.remainingEthers);
   return (
     <s.Container className="Fontcard" style={{ padding: 30 }}>
       <s.TextTitle>Dashboard</s.TextTitle>
@@ -21,6 +22,13 @@ const Overall = (props) => {
           <s.TextDescription>
             Mining Pool:{" "}
             <Decimal number={props.market.remainingeBTC} currency={"eBTC"} />
+          </s.TextDescription>
+          <s.TextDescription>
+            {process.env.REACT_APP_Native} Pool:{" "}
+            <Decimal
+              number={props.market.remainingEthers}
+              currency={process.env.REACT_APP_Native}
+            />
           </s.TextDescription>
         </s.Container>
       ) : (
